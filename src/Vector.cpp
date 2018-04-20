@@ -19,7 +19,7 @@ vector<T>::vector( const vector & vtr){
 	this->m_storage = new T[tam];
 
 	for( auto i(0); i < tam ; i++){
-		//*(this->m_storage+i) = *(vector+i);;
+		//*(this->m_storage+i) = *(vector+i);
 	}
 
 }
