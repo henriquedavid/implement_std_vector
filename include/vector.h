@@ -20,6 +20,9 @@ namespace sc{
 			~vector();
 			vector( const vector & );
 
+			vector & operator= ( const vector & );
+			vector & operator= ( vector & );
+
 			/// [III] Capacity
 
 			size_type size( void ) const;

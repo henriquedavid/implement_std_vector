@@ -13,10 +13,18 @@ vector<T>::vector( ){
 }
 
 template < typename T >
-vector<T>::vector( const vector & vtr){
+vector<T>::~vector(){
+	delete [] m_storage;
+}
+
+template < typename T >
+vector<T>::vector( const vector & vtr ){
 
 	size_type tam = vtr.capacity();
 	this->m_storage = new T[tam];
+
+	this->m_end = vtr.size();
+	this->capacity = tam;
 
 	for( auto i(0); i < tam ; i++){
 		//*(this->m_storage+i) = *(vector+i);
@@ -25,9 +33,36 @@ vector<T>::vector( const vector & vtr){
 }
 
 template < typename T >
-vector<T>::~vector(){
-	delete [] m_storage;
+vector<T> & vector<T>::operator= ( const vector<T> & vtr ) {
+
+	size_type tam = vtr.capacity();
+	this->m_storage = new T[tam];
+
+	this->m_end = vtr.size();
+	this->capacity = tam;
+
+	for( auto i(0); i < tam ; i++){
+		//*(this->m_storage+i) = *(vector+i);
+	}
+
 }
+
+template < typename T >
+vector<T> & vector<T>::operator= ( vector<T> & vtr ) {
+
+	size_type tam = vtr.capacity();
+	this->m_storage = new T[tam]; 
+
+	this->m_end = vtr.size();
+	this->capacity = tam;
+
+	for( auto i(0); i < tam ; i++){
+		//*(this->m_storage+i) = *(vector+i);
+	}
+
+}
+
+
 
 
 // [III] CAPACITY
