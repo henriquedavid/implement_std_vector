@@ -8,15 +8,19 @@ using size_type = size_t;
 // [I] SPECIAL MEMBERS
 
 template < typename T >
-vector<T>::vector( void ){
+vector<T>::vector( ){
 	this->m_storage = new T[DEFAULT_SIZE];
 }
 
 template < typename T >
-vector<T>::vector( const vector & ){
+vector<T>::vector( const vector & vtr){
 
-	int size_vet = vector.capacity();
-	this->m_storage = new T[size_vet];
+	size_type tam = vtr.capacity();
+	this->m_storage = new T[tam];
+
+	for( auto i(0); i < tam ; i++){
+		//*(this->m_storage+i) = *(vector+i);;
+	}
 
 }
 

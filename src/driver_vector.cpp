@@ -5,7 +5,7 @@
 
 int main(){
 
-	sc::vector<int> a;
+	sc::vector<int> a();
 
 	return 0;
 }
