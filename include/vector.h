@@ -1,6 +1,8 @@
-#define SC_VECTOR_H // A include guard do STL é _STL_VECTOR_H, no entanto é legal colocar o nome do namespace mesmo assim para nao confundir.
+#ifndef SC_VECTOR_H 
+#define SC_VECTOR_H // A include guard do STL é _STL_VECTOR_H, no entanto, é legal colocar o nome do namespace mesmo assim para nao confundir.
 
 #include <iostream>
+#include "my_iterator.h"
 
 namespace sc {
 	template < typename T >
@@ -15,7 +17,7 @@ namespace sc {
                 using pointer = value_type *;                                   //!< Pointer to a value stored in the container. 
                 using reference = value_type &;                                 //!< Reference to a value stored in the container. 
                 using const_reference = const value_type &;                     //!< Const reference to a value stored in the container.
-                //using iterator = MyForwardIterator< value_type >;               //!< The iterator, instantiated from a template class. 
+                using iterator = MyIterator< value_type >;                       //!< The iterator, instantiated from a template class. 
                 //using const_iterator = MyForwardIterator< const value_type >;   //!< The const_iterator, instantiated from a template class.
                 
                 // [--] PUBLIC ATTRIBUTES
@@ -36,12 +38,10 @@ namespace sc {
 
 				// [II] ITERATORS
                 
-                /*
                 iterator begin(void);
                 iterator end(void);
-                const_iterator cbegi(void) const;
-                const_iterator cend(void) const;
-                */
+                //const_iterator cbegi(void) const;
+                //const_iterator cend(void) const;
             
 				// [III] Capacity
 

@@ -17,18 +17,16 @@ vector<T>::~vector( ) {
 }
 
 template < typename T >
-vector<T>::vector( const vector & vtr ) {
-
-	size_type tam = vtr.capacity();
-	this->m_storage = new T[tam];
-
-	this->m_end = vtr.size();
-	this->capacity = tam;
-
-	for( auto i(0); i < tam ; i++){
-		//*(this->m_storage+i) = *(vector+i);
-	}
-
+sc::vector<T>::vector(const vector& vtr)
+{
+    size_type capacity = vtr.capacity();
+	
+    this->m_capacity = capacity;	
+    this->m_storage = new T[capacity];
+    this->m_end = vtr.size();
+    
+	std::copy(vtr.begin(), vtr.end(), this->m_storage);
+    
 }
 
 //vector(vector&&);
@@ -38,14 +36,15 @@ vector<T>::vector( const vector & vtr ) {
 template < typename T >
 vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
 
-	size_type tam = vtr.capacity();
-	this->m_storage = new T[tam];
-
+	size_type capacity = vtr.capacity();
+	this->m_storage = new T[capacity];
 	this->m_end = vtr.size();
-	this->capacity = tam;
+	this->m_capacity = capacity;
 
-	for( auto i(0); i < tam ; i++){
-		//*(this->m_storage+i) = *(vector+i);
+    auto vtr_storage = vtr.begin();
+    
+	for( auto i(0); i < capacity; i++ ){
+        this->m_storage[i] = vtr_storage[i];
 	}
 
 }
@@ -64,17 +63,17 @@ const_iterator cend(void) const;
 // [III] Capacity
 
 template < typename T >
-size_type vector<T>::size( void ) const{
+typename vector<T>::size_type vector<T>::size( void ) const {
 	return this->m_end;
 }
 
 template < typename T >
-size_type vector<T>::capacity( void ) const{
+typename vector<T>::size_type vector<T>::capacity( void ) const {
 	return this->m_capacity;
 }
 
 template < typename T >
-bool vector<T>::empty( void ) const{
+bool vector<T>::empty( void ) const {
 	return this->m_end == 0;
 }
 

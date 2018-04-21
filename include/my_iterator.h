@@ -1,13 +1,16 @@
-template < typename T>
-namespace sc{
+#ifndef SC_MY_ITERATOR_H
+#define SC_MY_ITERATOR_H
+
+namespace sc {
     
+    template < typename T>
     class MyIterator {
         
         public:
             
             MyIterator();
             
-            const Object & operator*( ) const;
+//             const Object & operator*( ) const;
             
             MyIterator & operator++( );
             // ++it;
@@ -32,3 +35,5 @@ namespace sc{
     };
     
 }
+
+#endif
