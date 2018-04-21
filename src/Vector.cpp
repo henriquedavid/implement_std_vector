@@ -64,7 +64,6 @@ vector<T> & vector<T>::operator= ( vector<T> & vtr ) {
 
 
 
-
 // [III] CAPACITY
 
 template < typename T >

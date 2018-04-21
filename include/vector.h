@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "my_iterator.h"
+
 namespace sc{
 
 	template < typename T >
@@ -15,6 +17,8 @@ namespace sc{
 		const static size_type DEFAULT_SIZE = 0;
 
 		public:
+
+			/// [I] Special Members
 
 			vector();
 			~vector();
