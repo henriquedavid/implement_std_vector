@@ -14,22 +14,29 @@ namespace sc {
             
 //             const Object & operator*( ) const;
             
+            /// Incrementar o vetor uma vez.
             MyIterator & operator++( );
             // ++it;
             
+            /// Incrementar o vetor uma quantidade x de vezes.
             MyIterator operator++( int );
             // it++;
             
+            /// Decrementar o vetor uma única vez.
             MyIterator & operator--( );
             // --it;
             
+            /// Decrementar o vetor uma quantidade x de vezes.
             MyIterator operator--( int ); 
             // it--
             
+            /// Comparar dois iteradores se são iguais.
             bool operator==( const MyIterator<T> & rhs );
             
+            /// Comprar dois iteradores se são difentes.
             bool operator!= ( const MyIterator<T> & rhs );
 
+            /// Obter para qual local o ponteiro está apontando.
             T & getcurrent(){
             	return this->current; 
             }
@@ -57,11 +64,12 @@ namespace sc {
             
             // [--] PUBLIC ATTRIBUTES
             
-            const  static size_type DEFAULT_SIZE = 0;
+            const static size_type DEFAULT_SIZE = 0;
             
             // [I] SPECIAL MEMBERS
 
-                vector( ); 
+            /// Gera um vetor com a configuração padrão - tamanho 0.
+            vector( ); 
             ~vector( );
             vector(const vector&);
             //vector(vector&&);
@@ -118,7 +126,7 @@ namespace sc {
 
             // [VI] Operators
             
-            //bool operator==( const Vector & ) const;
+            bool operator==( const vector & ) const;
             //bool operator!=( const vector & ) const;
             
 

@@ -58,6 +58,7 @@ template < typename T >
 sc::vector<T>::~vector( ) {
     delete [] m_storage;
 }
+
 /*
 template < typename T >
 vector<T>::vector(const vector& vtr)
@@ -193,8 +194,18 @@ typename vector<T>::const_reference vector<T>::data( void ) const
 
 
 // [VI] Operators
+template < typename T >
+bool vector<T>::operator==( const vector<T> & vtr) const{
+    if( this->m_end == vtr.m_end && this->m_capacity == vtr.m_capacity ){
+        for( auto i(0u) ; i < this->m_capacity ; i++ ){
+            if(*(this->m_storage+i) != *(vtr.m_storage+i))
+                return false;
+        }
+        return true;
+    }
 
-//bool operator==( const Vector & ) const;
+    return false;
+}
 //bool operator!=( const vector & ) const;
 
 // [VII] Friend functions.
