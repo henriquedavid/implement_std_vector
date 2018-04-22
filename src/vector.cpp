@@ -220,14 +220,7 @@ bool vector<T>::operator!=( const vector & vtr) const{
     return true;
 }
 
-// [VII] Friend functions.
-
-template < typename T >
-void swap(vector<T>& first_, vector<T> & second_ ){
-    auto valor = *first_;
-    *first_ = *second_;
-    *second_ = valor;
-}
+// [VII] Friend functions. -> In "vector.h"
 
 // [+] Non-member functions
 
