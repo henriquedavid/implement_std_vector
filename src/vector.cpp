@@ -227,6 +227,28 @@ bool vector<T>::operator!=( const vector & vtr) const{
 
 // [+] Non-member functions
 
-//bool operator==( const vector& lhs, const vector& rhs );
-//bool operator!=( const vector& lhs, const vector& rhs );
+template < typename T >
+bool operator==( const vector<T>& lhs, const vector<T>& rhs ){
+    if( lhs.m_end == rhs.m_end && lhs.m_capacity == rhs.m_capacity ){
+        for( auto i(0u) ; i < lhs.m_capacity ; i++ ){
+            if(*(lhs.m_storage+i) != *(rhs.m_storage+i))
+                return false;
+        }
+        return true;
+    }
 
+    return false;
+}
+
+template < typename T >
+bool operator!=( const vector<T>& lhs, const vector<T>& rhs ){
+    if( lhs.m_end == rhs.m_end && lhs.m_capacity == rhs.m_capacity ){
+        for( auto i(0u) ; i < lhs.m_capacity ; i++ ){
+            if(*(lhs.m_storage+i) != *(rhs.m_storage+i))
+                return true;
+        }
+        return false;
+    }
+
+    return true;
+}
