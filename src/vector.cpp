@@ -138,8 +138,12 @@ void vector<T>::push_front( const_reference value ){
     *(this->m_storage) = value;
 
 }
-// template < typename T >
-// void vector<T>::push_back( vector<T>::const_reference value );
+
+template < typename T >
+void vector<T>::push_back( vector<T>::const_reference value ){
+    *(this->m_storage+this->m_end) = value; 
+}
+
 // void pop_back( void );
 //void pop_front( void );
 //iterator insert( iterator , const_reference );

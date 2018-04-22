@@ -96,7 +96,7 @@ namespace sc {
 
             void clear( void );
             void push_front( const_reference );
-            //void push_back( const_reference );
+            void push_back( const_reference );
             //void pop_back( void );
             //void pop_front( void );
             //iterator insert( iterator , const_reference );
