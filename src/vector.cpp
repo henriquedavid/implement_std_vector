@@ -97,9 +97,9 @@ vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
 
 // [II] ITERATORS
 
-/*
-iterator begin(void);
-iterator end(void);
+//template < typename T >
+//iterator vector<T>::begin(void);
+/*iterator end(void);
 const_iterator cbegi(void) const;
 const_iterator cend(void) const;
 */
@@ -130,7 +130,14 @@ void vector<T>::clear( void ){
 
 }
 
-//void push_front( const_reference );
+template < typename T >
+void vector<T>::push_front( const_reference value ){
+    for( auto i(this->m_end) ; i > 0 ; i-- ){
+        vector<T>::swap((this->m_storage)+i-1, (this->m_storage)+i);
+    }
+    *(this->m_storage) = value;
+
+}
 // template < typename T >
 // void vector<T>::push_back( vector<T>::const_reference value );
 // void pop_back( void );
@@ -200,6 +207,8 @@ typename vector<T>::const_reference vector<T>::data( void ) const
 
 
 // [VI] Operators
+
+
 template < typename T >
 bool vector<T>::operator==( const vector<T> & vtr) const{
     if( this->m_end == vtr.m_end && this->m_capacity == vtr.m_capacity ){

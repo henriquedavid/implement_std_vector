@@ -59,7 +59,7 @@ namespace sc {
             using pointer = value_type *;                                   //!< Pointer to a value stored in the container. 
             using reference = value_type &;                                 //!< Reference to a value stored in the container. 
             using const_reference = const value_type &;                     //!< Const reference to a value stored in the container.
-            using iterator = MyIterator< value_type >;                       //!< The iterator, instantiated from a template class. 
+            using iterator = MyIterator< T >;                       //!< The iterator, instantiated from a template class. 
             using const_iterator = MyIterator< const value_type >;           //!< The const_iterator, instantiated from a template class.
             
             // [--] PUBLIC ATTRIBUTES
@@ -95,7 +95,7 @@ namespace sc {
             // [IV] Modifiers
 
             void clear( void );
-            //void push_front( const_reference );
+            void push_front( const_reference );
             //void push_back( const_reference );
             //void pop_back( void );
             //void pop_front( void );
