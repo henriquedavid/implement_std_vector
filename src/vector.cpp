@@ -2,22 +2,23 @@
 
 using namespace sc;
 
-// [I] SPECIAL MEMBERS
+template class vector < int >; // TODO: transformar esse .cpp em .tpp e incluir em vector.h
 
-template < typename T >
-vector<T>::vector( ) {
+// [I] SPECIAL MEMBERS
+template<class T>
+sc::vector<T>::vector( ) {
     this->m_end = DEFAULT_SIZE;
     this->m_capacity = DEFAULT_SIZE;
-	this->m_storage = new T[DEFAULT_SIZE];
+	this->m_storage = new T[DEFAULT_SIZE+1];
 }
 
 template < typename T >
-vector<T>::~vector( ) {
+sc::vector<T>::~vector( ) {
     delete [] m_storage;
 }
-
+/*
 template < typename T >
-sc::vector<T>::vector(const vector& vtr)
+vector<T>::vector(const vector& vtr)
 {
     size_type capacity = vtr.capacity();
 	
@@ -28,11 +29,11 @@ sc::vector<T>::vector(const vector& vtr)
 	std::copy(vtr.begin(), vtr.end(), this->m_storage);
     
 }
-
+*/
 //vector(vector&&);
 //template < typename InputItr >
 //vector( InputItr, InputItr );
-
+/*
 template < typename T >
 vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
 
@@ -43,12 +44,12 @@ vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
 
     auto vtr_storage = vtr.begin();
     
-	for( auto i(0); i < capacity; i++ ){
+	for( auto i(0u); i < capacity; i++ ){
         this->m_storage[i] = vtr_storage[i];
 	}
-
+	return *this;
 }
-
+*/
 // vector & operator=( vector && );
 
 // [II] ITERATORS
@@ -81,7 +82,8 @@ bool vector<T>::empty( void ) const {
 
 //void clear( void );
 //void push_front( const_reference );
-//void push_back( const_reference );
+// template < typename T >
+// void vector<T>::push_back( vector<T>::const_reference value );
 //void pop_back( void );
 //void pop_front( void );
 //iterator insert( iterator , const_reference );
@@ -99,14 +101,53 @@ bool vector<T>::empty( void ) const {
 
 // [V] Element access
 
-//const_reference back( void ) const;
-//const_reference front( void ) const;
-//const_reference operator []( size_type ) const;
-//reference operator []( size_type );
-//const_reference at( size_type ) const;
-//reference at( size_type );
-//pointer data( void );
-//const_reference data( void ) const;
+template < typename T >
+typename vector<T>::const_reference vector<T>::back( void ) const {
+    return const_cast< vector<T>::const_reference > ( this->m_storage[this->m_end-1] );
+}
+
+template < typename T >
+typename vector<T>::const_reference vector<T>::front( void ) const {
+    return const_cast< vector<T>::const_reference > ( * this->m_storage );
+}
+
+template < typename T >
+typename vector<T>::const_reference vector<T>::operator[]( size_type pos ) const {
+    return const_cast< vector<T>::const_reference > ( this->m_storage [pos] );
+}
+
+template < typename T >
+typename vector<T>::reference vector<T>::operator[]( size_type pos ) {
+     return this->m_storage [pos];
+}
+
+template < typename T >
+typename vector<T>::const_reference vector<T>::at( vector<T>::size_type pos ) const
+{
+    if(pos > this->m_end || pos < 0)
+        throw std::out_of_range("Index provided is outside the array range.");
+    return this->m_storage[pos];
+}
+
+template < typename T >
+typename vector<T>::reference vector<T>::at( vector<T>::size_type pos )
+{
+    if(pos > this->m_end || pos < 0)
+        throw std::out_of_range("Index provided is outside the array range.");
+    return this->m_storage[pos];
+}
+
+
+template < typename T >
+typename vector<T>::pointer vector<T>::data( void ) {
+    return this->m_storage;
+}
+
+template < typename T >
+typename vector<T>::const_reference vector<T>::data( void ) const
+{
+    return const_cast< vector<T>::const_reference > ( * this->m_storage );
+}
 
 
 // [VI] Operators
@@ -118,3 +159,9 @@ bool vector<T>::empty( void ) const {
 
 //friend std::ostream & operator<<( std::ostream & os_, const Vector<T> & v_ );
 //friend void swap(vector<T>& first_, vector<T> & second_ );
+
+// [+] Non-member functions
+
+//bool operator==( const vector& lhs, const vector& rhs );
+//bool operator!=( const vector& lhs, const vector& rhs );
+
