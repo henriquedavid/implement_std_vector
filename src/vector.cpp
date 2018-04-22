@@ -4,6 +4,48 @@ using namespace sc;
 
 template class vector < int >; // TODO: transformar esse .cpp em .tpp e incluir em vector.h
 
+// MYITERATOR CLASS METHOD
+
+template < typename T >
+sc::MyIterator<T>::MyIterator(){
+
+}
+
+template < typename T >
+sc::MyIterator<T> & MyIterator<T>::operator++(){
+    this->current++;
+}
+
+template < typename T >
+sc::MyIterator<T> MyIterator<T>::operator++( int value ){
+    this->current +=value;
+}
+
+template < typename T >
+sc::MyIterator<T> & MyIterator<T>::operator--(){
+    this->current--;
+}
+
+template < typename T >
+sc::MyIterator<T> MyIterator<T>::operator--( int value ){
+    this->current -= value;
+}
+
+template < typename T >
+bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ){
+    if( this->current == rhs.getcurrent )
+        return true;
+    return false;
+}
+
+template < typename T >
+bool sc::MyIterator<T>::operator!=( const MyIterator<T> & rhs ){
+    if( this->current != rhs.getcurrent )
+        return true;
+    return false;
+}
+
+
 // [I] SPECIAL MEMBERS
 template<class T>
 sc::vector<T>::vector( ) {

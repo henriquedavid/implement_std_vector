@@ -26,9 +26,13 @@ namespace sc {
             MyIterator operator--( int ); 
             // it--
             
-            bool operator==( const MyIterator & rhs );
+            bool operator==( const MyIterator<T> & rhs );
             
-            bool operator!= ( const MyIterator & rhs );
+            bool operator!= ( const MyIterator<T> & rhs );
+
+            T & getcurrent(){
+            	return this->current; 
+            }
             
         private:
             

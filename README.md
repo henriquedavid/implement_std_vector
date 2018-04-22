@@ -12,5 +12,3 @@ O *vector* é um dos principais tipos de estruturas de armazenamento de dados.
 
 Authorship
 Program developed by Henrique David and Pablo Emanuell.
-
-# implement_std_vector
