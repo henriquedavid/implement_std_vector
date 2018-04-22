@@ -222,7 +222,7 @@ bool vector<T>::operator!=( const vector & vtr) const{
 
 // [VII] Friend functions.
 template < typename T >
-std::ostream & sc::vector<T>::operator<<( std::ostream & os_, const vector<T> & v_ ){
+std::ostream & operator<<( std::ostream & os_, const vector<T> & v_ ){
     os_ << "Vetor = [ ";
     for( auto i(0); i < v_.m_capacity ; i++ ){
         os_ << v_.m_storage[i] << " ";
