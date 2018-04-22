@@ -221,17 +221,13 @@ bool vector<T>::operator!=( const vector & vtr) const{
 }
 
 // [VII] Friend functions.
-template < typename T >
-std::ostream & operator<<( std::ostream & os_, const vector<T> & v_ ){
-    os_ << "Vetor = [ ";
-    for( auto i(0); i < v_.m_capacity ; i++ ){
-        os_ << v_.m_storage[i] << " ";
-    }
-    os_ << "]";
-    return os_;
-}
 
-//friend void swap(vector<T>& first_, vector<T> & second_ );
+template < typename T >
+void swap(vector<T>& first_, vector<T> & second_ ){
+    auto valor = *first_;
+    *first_ = *second_;
+    *second_ = valor;
+}
 
 // [+] Non-member functions
 
