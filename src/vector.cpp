@@ -206,7 +206,19 @@ bool vector<T>::operator==( const vector<T> & vtr) const{
 
     return false;
 }
-//bool operator!=( const vector & ) const;
+
+template < typename T >
+bool vector<T>::operator!=( const vector & vtr) const{
+    if( this->m_end == vtr.m_end && this->m_capacity == vtr.m_capacity ){
+        for( auto i(0u) ; i < this->m_capacity ; i++ ){
+            if(*(this->m_storage+i) != *(vtr.m_storage+i))
+                return true;
+        }
+        return false;
+    }
+
+    return true;
+}
 
 // [VII] Friend functions.
 

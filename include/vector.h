@@ -127,7 +127,7 @@ namespace sc {
             // [VI] Operators
             
             bool operator==( const vector & ) const;
-            //bool operator!=( const vector & ) const;
+            bool operator!=( const vector & ) const;
             
 
             // [VII] Friend functions.
