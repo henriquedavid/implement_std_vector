@@ -123,11 +123,17 @@ bool vector<T>::empty( void ) const {
 
 // [IV] Modifiers
 
-//void clear( void );
+template < typename T >
+void vector<T>::clear( void ){
+    delete [] this->m_storage;
+    this->m_storage = new T[DEFAULT_SIZE];
+
+}
+
 //void push_front( const_reference );
 // template < typename T >
 // void vector<T>::push_back( vector<T>::const_reference value );
-//void pop_back( void );
+// void pop_back( void );
 //void pop_front( void );
 //iterator insert( iterator , const_reference );
 //template < typename InputItr >

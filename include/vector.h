@@ -94,7 +94,7 @@ namespace sc {
 
             // [IV] Modifiers
 
-            //void clear( void );
+            void clear( void );
             //void push_front( const_reference );
             //void push_back( const_reference );
             //void pop_back( void );
