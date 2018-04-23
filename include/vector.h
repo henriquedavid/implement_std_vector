@@ -152,9 +152,9 @@ namespace sc {
 
         private:
 
-            size_type m_end;	//<! Current list size (or index past-last valid element>
-            size_type m_capacity;	//<! List’s storage capacity.
-            T *m_storage;		//<! Data storage area for the dynamic array.
+            size_type m_end;	        //<! Current list size (or index past-last valid element>
+            size_type m_capacity;	    //<! List’s storage capacity.
+            T *m_storage;		        //<! Data storage area for the dynamic array.
             
     };
         

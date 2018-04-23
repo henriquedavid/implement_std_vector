@@ -164,7 +164,8 @@ void vector<T>::push_front( const_reference value ){
 template < typename T >
 void vector<T>::push_back( vector<T>::const_reference value ){
     if(m_end == this->m_capacity)
-    *(this->m_storage+this->m_end) = value; 
+        this->reserve(this->m_capacity * 2);
+    this->m_storage[this->m_end++] = value;
 }
 
 // void pop_back( void );

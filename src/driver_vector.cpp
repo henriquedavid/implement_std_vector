@@ -27,7 +27,7 @@ int main(){
     vect2[0] = 1;
     vect2[1] = 2;
     vect2[2] = 3;
-    vect2[3] = 4;
+    vect2.push_back(4);
     cout << "[ ";
     for(int & a : vect2 ) {
         cout << a << " ";
