@@ -10,7 +10,10 @@ namespace sc {
         
         public:
             
-            MyIterator();
+            using value_type = T;           //!< The value_type.
+            using pointer = value_type *;
+            
+            MyIterator( pointer pt = nullptr );
             
 //             const Object & operator*( ) const;
             
@@ -31,10 +34,12 @@ namespace sc {
             // it--
             
             /// Comparar dois iteradores se são iguais.
-            bool operator==( const MyIterator<T> & rhs );
+            bool operator==( const MyIterator<T> & rhs ) const;
             
             /// Comprar dois iteradores se são difentes.
-            bool operator!= ( const MyIterator<T> & rhs );
+            bool operator!= ( const MyIterator<T> & rhs ) const;
+            
+            MyIterator & operator=( const MyIterator<T> & rhs );
 
             /// Obter para qual local o ponteiro está apontando.
             T & getcurrent(){
@@ -59,8 +64,8 @@ namespace sc {
             using pointer = value_type *;                                   //!< Pointer to a value stored in the container. 
             using reference = value_type &;                                 //!< Reference to a value stored in the container. 
             using const_reference = const value_type &;                     //!< Const reference to a value stored in the container.
-            using iterator = MyIterator< T >;                       //!< The iterator, instantiated from a template class. 
-            using const_iterator = MyIterator< const value_type >;           //!< The const_iterator, instantiated from a template class.
+            using iterator = MyIterator< T >;                               //!< The iterator, instantiated from a template class. 
+            using const_iterator = MyIterator< const value_type >;          //!< The const_iterator, instantiated from a template class.
             
             // [--] PUBLIC ATTRIBUTES
             

@@ -7,8 +7,13 @@ template class vector < int >; // TODO: transformar esse .cpp em .tpp e incluir 
 // MYITERATOR CLASS METHOD
 
 template < typename T >
-sc::MyIterator<T>::MyIterator(){
-
+sc::MyIterator<T>::MyIterator(MyIterator<T>::pointer pt){
+    this->current = pt;
+}
+template < typename T >
+MyIterator<T> & MyIterator<T>::operator=( const MyIterator<T> & rhs ){
+    this->current = rhs.current;
+    return *this;
 }
 
 template < typename T >
@@ -18,7 +23,7 @@ sc::MyIterator<T> & MyIterator<T>::operator++(){
 
 template < typename T >
 sc::MyIterator<T> MyIterator<T>::operator++( int value ){
-    this->current +=value;
+    this->current += value;
 }
 
 template < typename T >
@@ -32,14 +37,14 @@ sc::MyIterator<T> MyIterator<T>::operator--( int value ){
 }
 
 template < typename T >
-bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ){
+bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ) const {
     if( this->current == rhs.getcurrent )
         return true;
     return false;
 }
 
 template < typename T >
-bool sc::MyIterator<T>::operator!=( const MyIterator<T> & rhs ){
+bool sc::MyIterator<T>::operator!=( const MyIterator<T> & rhs ) const {
     if( this->current != rhs.getcurrent )
         return true;
     return false;
@@ -141,6 +146,7 @@ void vector<T>::push_front( const_reference value ){
 */
 template < typename T >
 void vector<T>::push_back( vector<T>::const_reference value ){
+    if(m_end == this->m_capacity)
     *(this->m_storage+this->m_end) = value; 
 }
 
