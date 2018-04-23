@@ -103,7 +103,7 @@ namespace sc {
             //template < typename InputItr >
             //iterator insert( iterator , InputItr , InputItr );
             //iterator insert( iterator, std::initializer_list< value_type > );
-            //void reserve( size_type );
+            void reserve( size_type );
             //void shrink_to_fit( void );
             //void assign( const_reference );
             //void assign( std::initializer_list<T> );

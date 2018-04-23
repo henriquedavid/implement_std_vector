@@ -129,16 +129,16 @@ void vector<T>::clear( void ){
     this->m_storage = new T[DEFAULT_SIZE];
 
 }
-
+/*
 template < typename T >
 void vector<T>::push_front( const_reference value ){
     for( auto i(this->m_end) ; i > 0 ; i-- ){
-        vector<T>::swap((this->m_storage)+i-1, (this->m_storage)+i);
+        swap(*(this->m_storage+i-1), *(this->m_storage+i));
     }
     *(this->m_storage) = value;
 
 }
-
+*/
 template < typename T >
 void vector<T>::push_back( vector<T>::const_reference value ){
     *(this->m_storage+this->m_end) = value; 
@@ -150,7 +150,23 @@ void vector<T>::push_back( vector<T>::const_reference value ){
 //template < typename InputItr >
 //iterator insert( iterator , InputItr , InputItr );
 //iterator insert( iterator, std::initializer_list< value_type > );
-//void reserve( size_type );
+
+
+template < typename T >
+void vector<T>::reserve(vector<T>::size_type size)
+{
+    if(size <= this->m_capacity)
+        return;
+    T* new_storage = new T[size];
+    this->m_capacity = size;
+    auto end(this->m_end);
+    for(auto i(0u); i < end; ++i) {
+        new_storage[i] = this->m_storage[i]; 
+    }
+    delete [] this->m_storage;
+    this->m_storage = new_storage;
+    // TODO: autualizar iterators
+}
 //void shrink_to_fit( void );
 //void assign( const_reference );
 //void assign( std::initializer_list<T> );
