@@ -19,8 +19,21 @@ int main(){
         vect->at(5) = 5;
         assert("Error: The exception was not caught\n");
     } catch(out_of_range e) {
+        
     }
     
+    sc::vector<int> vect2;
+    vect2.reserve(4);
+    vect2[0] = 1;
+    vect2[1] = 2;
+    vect2[2] = 3;
+    vect2[3] = 4;
+    cout << *vect2.begin()+3;
+    cout << "[ ";
+    for(int a : vect2 ) {
+        cout << a << " ";
+    }
+    cout << " ] \n";
     
 	return 0;
 }

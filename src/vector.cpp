@@ -3,7 +3,7 @@
 using namespace sc;
 
 template class vector < int >; // TODO: transformar esse .cpp em .tpp e incluir em vector.h
-
+template class MyIterator< int >;
 // MYITERATOR CLASS METHOD
 
 template < typename T >
@@ -17,37 +17,39 @@ MyIterator<T> & MyIterator<T>::operator=( const MyIterator<T> & rhs ){
 }
 
 template < typename T >
+typename MyIterator<T>::reference MyIterator<T>::operator*( ) const{
+    return *this->current;
+}
+
+template < typename T >
 sc::MyIterator<T> & MyIterator<T>::operator++(){
     this->current++;
+    return *this;
 }
 
-template < typename T >
-sc::MyIterator<T> MyIterator<T>::operator++( int value ){
-    this->current += value;
-}
+// template < typename T >
+// sc::MyIterator<T> MyIterator<T>::operator++( int ){
+//     
+// }
 
 template < typename T >
-sc::MyIterator<T> & MyIterator<T>::operator--(){
+sc::MyIterator<T> & MyIterator<T>::operator--( ){
     this->current--;
+    return *this;
 }
 
-template < typename T >
-sc::MyIterator<T> MyIterator<T>::operator--( int value ){
-    this->current -= value;
-}
+// template < typename T >
+// sc::MyIterator<T> MyIterator<T>::operator--( int ){
+// }
 
 template < typename T >
 bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ) const {
-    if( this->current == rhs.getcurrent )
-        return true;
-    return false;
+    return this->current == rhs.current;
 }
 
 template < typename T >
 bool sc::MyIterator<T>::operator!=( const MyIterator<T> & rhs ) const {
-    if( this->current != rhs.getcurrent )
-        return true;
-    return false;
+    return this->current != rhs.current;
 }
 
 
@@ -102,12 +104,26 @@ vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
 
 // [II] ITERATORS
 
-//template < typename T >
-//iterator vector<T>::begin(void);
-/*iterator end(void);
-const_iterator cbegi(void) const;
-const_iterator cend(void) const;
-*/
+template < typename T >
+typename vector<T>::iterator vector<T>::begin(void) {
+    return vector<T>::iterator(this->m_storage);
+}
+
+template < typename T >
+typename vector<T>::iterator vector<T>::end(void) {
+    return vector<T>::iterator(this->m_storage + this->m_end);
+}
+
+template < typename T >
+typename vector<T>::const_iterator vector<T>::cbegin(void) const {
+    return vector<T>::const_iterator ( this->m_storage );
+}
+
+template < typename T >
+typename vector<T>::const_iterator vector<T>::cend(void) const {
+    return vector<T>::const_iterator( this->m_storage  + this->m_end );
+}
+
 
 // [III] Capacity
 

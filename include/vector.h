@@ -12,10 +12,11 @@ namespace sc {
             
             using value_type = T;           //!< The value_type.
             using pointer = value_type *;
-            
+            using reference = value_type &;
+            using const_reference = const value_type &;  
             MyIterator( pointer pt = nullptr );
             
-//             const Object & operator*( ) const;
+            reference operator*( ) const;
             
             /// Incrementar o vetor uma vez.
             MyIterator & operator++( );
@@ -37,14 +38,9 @@ namespace sc {
             bool operator==( const MyIterator<T> & rhs ) const;
             
             /// Comprar dois iteradores se são difentes.
-            bool operator!= ( const MyIterator<T> & rhs ) const;
+            bool operator!=( const MyIterator<T> & rhs ) const;
             
             MyIterator & operator=( const MyIterator<T> & rhs );
-
-            /// Obter para qual local o ponteiro está apontando.
-            T & getcurrent(){
-            	return this->current; 
-            }
             
         private:
             
@@ -88,8 +84,8 @@ namespace sc {
             
             iterator begin(void);
             iterator end(void);
-            //const_iterator cbegi(void) const;
-            //const_iterator cend(void) const;
+            const_iterator cbegin(void) const;
+            const_iterator cend(void) const;
         
             // [III] Capacity
 
