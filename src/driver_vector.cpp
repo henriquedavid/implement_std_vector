@@ -28,9 +28,8 @@ int main(){
     vect2[1] = 2;
     vect2[2] = 3;
     vect2[3] = 4;
-    cout << *vect2.begin()+3;
     cout << "[ ";
-    for(int a : vect2 ) {
+    for(int & a : vect2 ) {
         cout << a << " ";
     }
     cout << " ] \n";

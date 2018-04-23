@@ -4,6 +4,7 @@ using namespace sc;
 
 template class vector < int >; // TODO: transformar esse .cpp em .tpp e incluir em vector.h
 template class MyIterator< int >;
+template class MyIterator< const int >;
 // MYITERATOR CLASS METHOD
 
 template < typename T >
@@ -111,7 +112,7 @@ typename vector<T>::iterator vector<T>::begin(void) {
 
 template < typename T >
 typename vector<T>::iterator vector<T>::end(void) {
-    return vector<T>::iterator(this->m_storage + this->m_end);
+    return vector<T>::iterator(this->m_storage + this->m_capacity );
 }
 
 template < typename T >
@@ -121,7 +122,7 @@ typename vector<T>::const_iterator vector<T>::cbegin(void) const {
 
 template < typename T >
 typename vector<T>::const_iterator vector<T>::cend(void) const {
-    return vector<T>::const_iterator( this->m_storage  + this->m_end );
+    return vector<T>::const_iterator( this->m_storage  + this->m_capacity );
 }
 
 
