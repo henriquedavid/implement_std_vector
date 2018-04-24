@@ -106,11 +106,11 @@ namespace sc {
             //iterator insert( iterator, std::initializer_list< value_type > );
             void reserve( size_type );
             //void shrink_to_fit( void );
-            //void assign( const_reference );
+            void assign( const_reference );
             //void assign( std::initializer_list<T> );
             //template < typename InputItr >
             //void assign( InputItr, InputItr );
-            //iterator erase( iterator, iterator );
+            iterator erase( iterator, iterator );
             //iterator erase( iterator );
 
             // [V] Element access
@@ -132,24 +132,13 @@ namespace sc {
             
 
             // [VII] Friend functions.
-            friend std::ostream & operator<<( std::ostream & os_ , const vector& v_){
+            template < typename TT >
+            friend std::ostream & operator<<( std::ostream & os_, const vector<TT> & v_ );
 
-            	os_ << "Vetor = [ ";
-    			for( auto i(0); i < v_.m_capacity ; i++ ){
-			        os_ << *(v_.m_storage+i) << " ";
- 	   			}
-			    os_ << "]";
-			
-			    return os_;
-            }
-
-
-            friend void swap(vector<T>& first_, vector<T> & second_ ){
-            	auto valor = *first_;
-    			*first_ = *second_;
-			    *second_ = valor;
-            }
-
+//             friend std::ostream & operator<<( std::ostream & os_ , const vector& v_);
+            
+            template < typename TT >
+            friend void swap(vector<TT>& first_, vector<TT> & second_ );
         private:
 
             size_type m_end;	        //<! Current list size (or index past-last valid element>
@@ -159,5 +148,7 @@ namespace sc {
     };
         
 }
+
+#include "vector.inl"
 
 #endif

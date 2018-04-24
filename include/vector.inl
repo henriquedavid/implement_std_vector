@@ -2,9 +2,6 @@
 
 using namespace sc;
 
-template class vector < int >; // TODO: transformar esse .cpp em .tpp e incluir em vector.h
-template class MyIterator< int >;
-template class MyIterator< const int >;
 // MYITERATOR CLASS METHOD
 
 template < typename T >
@@ -191,11 +188,32 @@ void vector<T>::reserve(vector<T>::size_type size)
     this->m_storage = new_storage;
 }
 //void shrink_to_fit( void );
-//void assign( const_reference );
+
+template < typename T >
+void vector<T>::assign( vector<T>::const_reference value )
+{
+    auto first = m_storage;
+    auto last = m_storage + m_end;
+    
+    while(first < last)
+        *(first++) = value;
+}
+
 //void assign( std::initializer_list<T> );
 //template < typename InputItr >
 //void assign( InputItr, InputItr );
-//iterator erase( iterator, iterator );
+
+template < typename T >
+typename vector<T>::iterator vector<T>::erase( vector<T>::iterator first, vector<T>::iterator last){
+    auto aux = last;
+    auto p_m_end = this->m_storage + this->m_end;
+    while(aux < p_m_end)
+    {
+        *(first++) = *(aux++);
+    }
+    
+}
+
 //iterator erase( iterator );
 
 // [V] Element access
@@ -279,7 +297,7 @@ bool vector<T>::operator!=( const vector & vtr) const{
 }
 
 // [VII] Friend functions.
-// std::ostream& sc::operator<< <int>(std::ostream&, sc::vector<int> const&)
+
 template < typename TT >
 std::ostream & operator<<(std::ostream & os_ , const vector<TT>& v_){
     os_ << "Vetor = [ ";
