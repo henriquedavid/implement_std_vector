@@ -17,6 +17,8 @@ namespace sc {
             MyIterator( pointer pt = nullptr );
             
             reference operator*( ) const;
+
+            ~MyIterator();
             
             /// Incrementar o vetor uma vez.
             MyIterator & operator++( );
@@ -133,12 +135,20 @@ namespace sc {
 
             // [VII] Friend functions.
             template < typename TT >
-            friend std::ostream & operator<<( std::ostream & os_, const vector<TT> & v_ );
+            friend std::ostream & operator<<( std::ostream & os_, const vector<TT> & v_ ){
+                  os_ << "Vetor = [ ";
+                  for( auto i(0u); i < v_.m_capacity ; i++ ){
+                        os_ << *(v_.m_storage+i) << " ";
+                  }
+                  os_ << "]";
+    
+                  return os_;
+            }
 
-//             friend std::ostream & operator<<( std::ostream & os_ , const vector& v_);
             
             template < typename TT >
             friend void swap(vector<TT>& first_, vector<TT> & second_ );
+
         private:
 
             size_type m_end;	        //<! Current list size (or index past-last valid element>

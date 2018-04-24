@@ -5,6 +5,9 @@ using namespace sc;
 // MYITERATOR CLASS METHOD
 
 template < typename T >
+sc::MyIterator<T>::~MyIterator() = default;
+
+template < typename T >
 sc::MyIterator<T>::MyIterator(MyIterator<T>::pointer pt){
     this->current = pt;
 }
@@ -298,16 +301,6 @@ bool vector<T>::operator!=( const vector & vtr) const{
 
 // [VII] Friend functions.
 
-template < typename TT >
-std::ostream & operator<<(std::ostream & os_ , const vector<TT>& v_){
-    os_ << "Vetor = [ ";
-    for( auto i(0); i < v_.m_capacity ; i++ ){
-        os_ << *(v_.m_storage+i) << " ";
-    }
-    os_ << "]";
-    
-    return os_;
-}
 
 template < typename T >
 void swap(vector<T>& first_, vector<T> & second_ ){
