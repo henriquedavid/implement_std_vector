@@ -10,5 +10,9 @@ O *vector* é um dos principais tipos de estruturas de armazenamento de dados.
 2. Executar
 
 
+**Observações:**
+
+A sobrecarga do operator<< está o interior da célula por erros durante o processo de compilação, acusando ambiguidade, como informado na sala e sendo possível de inclusão do método no interior da classe, como combinado.
+
 Authorship
 Program developed by Henrique David and Pablo Emanuell.
