@@ -14,7 +14,17 @@ int main(){
     
     vect->push_back(1);
     vect->push_back(2);
-    vect->push_back(3); 
+    vect->push_back(3);
+
+    sc::vector<int> vect1(2);
+    vect1.push_back(10);
+
+    std::cout << "Vetor1: ";
+    std::cout << vect1 << std::endl;
+
+    sc::vector<int> vect2(vect1);
+    std::cout << "Vetor2: ";
+    std::cout << vect2 << std::endl;
 
     std::cout << *vect << std::endl;
 

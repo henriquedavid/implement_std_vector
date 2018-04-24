@@ -5,8 +5,8 @@
 
 namespace sc {
     
-    template < typename T>
-    class MyIterator {
+      template < typename T>
+      class MyIterator {
         
         public:
             
@@ -40,6 +40,8 @@ namespace sc {
             MyIterator operator--( int ); 
             // it--
 
+            MyIterator operator+( int ); 
+
             MyIterator * operator->( void ) const;
             
             /// Comparar dois iteradores se são iguais.
@@ -50,16 +52,16 @@ namespace sc {
             
             MyIterator & operator=( const MyIterator<T> & rhs );
 
-            MyIterator operator-( const MyIterator & rhs ) const;
+            difference_type operator-( const MyIterator & rhs ) const;
             
         private:
             
             T *current;
         
-    };
+      };
     
 	template < typename T >
-    class vector {
+      class vector {
         
         public:
             
@@ -80,7 +82,7 @@ namespace sc {
             // [I] SPECIAL MEMBERS
 
             /// Gera um vetor com a configuração padrão - tamanho 0.
-            vector( ); 
+            vector( size_type value = 0 );
             ~vector( );
             vector(const vector&);
             //vector(vector&&);
@@ -163,7 +165,7 @@ namespace sc {
             size_type m_capacity;	    //<! List’s storage capacity.
             T *m_storage;		        //<! Data storage area for the dynamic array.
             
-    };
+      };
         
 }
 

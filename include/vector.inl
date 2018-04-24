@@ -61,6 +61,11 @@ sc::MyIterator<T> MyIterator<T>::operator--( int ){
 }
 
 template < typename T >
+sc::MyIterator<T> MyIterator<T>::operator+( int value ){
+         return this->current+value;
+}
+
+template < typename T >
 bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ) const {
     return this->current == rhs.current;
 }
@@ -71,16 +76,18 @@ bool sc::MyIterator<T>::operator!=( const MyIterator<T> & rhs ) const {
 }
 
 template < typename T >
-MyIterator<T> MyIterator<T>::operator-( const MyIterator & rhs ) const{
+typename MyIterator<T>::difference_type MyIterator<T>::operator-( const MyIterator & rhs ) const{
     return this->current - rhs.current;
 }
 
+// -------------------- VECTOR CLASS ---------------------------
+
 // [I] SPECIAL MEMBERS
-template<class T>
-sc::vector<T>::vector( ) {
+template< typename T>
+vector<T>::vector( size_type value ) {
     this->m_end = DEFAULT_SIZE;
-    this->m_capacity = DEFAULT_SIZE+1;
-    this->m_storage = new T[DEFAULT_SIZE+1];
+    this->m_capacity = value+1;
+    this->m_storage = new T[m_capacity];
 }
 
 template < typename T >
@@ -88,20 +95,23 @@ sc::vector<T>::~vector( ) {
     delete [] m_storage;
 }
 
-/*
- * template < typename T >
- * vector<T>::vector(const vector& vtr)
- * {
- *    size_type capacity = vtr.capacity();
- *	
- *    this->m_capacity = capacity;	
- *    this->m_storage = new T[capacity];
- *    this->m_end = vtr.size();
- *    
- *	std::copy(vtr.begin(), vtr.end(), this->m_storage);
- *    
- * }
- */
+
+template < typename T >
+vector<T>::vector(const vector& vtr)
+{
+    this->m_capacity = vtr.m_capacity;
+    this->m_storage = new T[m_capacity];
+    this->m_end = vtr.m_end;
+   
+    auto f(this->begin());
+    int i = 0;
+    while((f+i) != this->end()){
+        *(f+i) = *(vtr.m_storage+i);
+        i++;
+    }
+    
+}
+
 //vector(vector&&);
 //template < typename InputItr >
 //vector( InputItr, InputItr );
