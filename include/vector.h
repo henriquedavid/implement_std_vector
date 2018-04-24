@@ -14,7 +14,11 @@ namespace sc {
             using pointer = value_type *;
             using reference = value_type &;
             using const_reference = const value_type &;  
+            using difference_type = std::ptrdiff_t;
+
             MyIterator( pointer pt = nullptr );
+
+            MyIterator( const MyIterator<T> &);
             
             reference operator*( ) const;
 
@@ -35,6 +39,8 @@ namespace sc {
             /// Decrementar o vetor uma quantidade x de vezes.
             MyIterator operator--( int ); 
             // it--
+
+            MyIterator * operator->( void ) const;
             
             /// Comparar dois iteradores se são iguais.
             bool operator==( const MyIterator<T> & rhs ) const;
@@ -43,6 +49,8 @@ namespace sc {
             bool operator!=( const MyIterator<T> & rhs ) const;
             
             MyIterator & operator=( const MyIterator<T> & rhs );
+
+            MyIterator operator-( const MyIterator & rhs ) const;
             
         private:
             
@@ -137,7 +145,7 @@ namespace sc {
             template < typename TT >
             friend std::ostream & operator<<( std::ostream & os_, const vector<TT> & v_ ){
                   os_ << "Vetor = [ ";
-                  for( auto i(0u); i < v_.m_capacity ; i++ ){
+                  for( auto i(0u); i < v_.m_end ; i++ ){
                         os_ << *(v_.m_storage+i) << " ";
                   }
                   os_ << "]";

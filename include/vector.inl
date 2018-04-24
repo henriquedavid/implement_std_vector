@@ -4,13 +4,25 @@ using namespace sc;
 
 // MYITERATOR CLASS METHOD
 
-template < typename T >
-sc::MyIterator<T>::~MyIterator() = default;
 
 template < typename T >
-sc::MyIterator<T>::MyIterator(MyIterator<T>::pointer pt){
+MyIterator<T>::MyIterator(MyIterator<T>::pointer pt){
     this->current = pt;
 }
+
+template < typename T >
+MyIterator<T>::MyIterator( const MyIterator<T> &) = default;
+
+template < typename T >
+MyIterator<T>::~MyIterator() = default;
+
+// O operator-> retorna a referencia do ponteiro atual?
+
+template < typename T >
+MyIterator<T> * MyIterator<T>::operator->( void ) const{
+    return &this->current;
+}
+
 template < typename T >
 MyIterator<T> & MyIterator<T>::operator=( const MyIterator<T> & rhs ){
     this->current = rhs.current;
@@ -18,30 +30,35 @@ MyIterator<T> & MyIterator<T>::operator=( const MyIterator<T> & rhs ){
 }
 
 template < typename T >
-typename MyIterator<T>::reference MyIterator<T>::operator*( ) const{
+typename MyIterator<T>::reference MyIterator<T>::operator*( void ) const{
     return *this->current;
 }
 
 template < typename T >
-sc::MyIterator<T> & MyIterator<T>::operator++(){
-    this->current++;
+sc::MyIterator<T> & MyIterator<T>::operator++( void ){
+    ++this->current;
     return *this;
 }
-
-// template < typename T >
-// sc::MyIterator<T> MyIterator<T>::operator++( int ){
-//     
-// }
 
 template < typename T >
-sc::MyIterator<T> & MyIterator<T>::operator--( ){
-    this->current--;
+sc::MyIterator<T> MyIterator<T>::operator++( int ){
+         auto temp(*this);
+         ++this->current;
+         return temp;
+}
+
+template < typename T >
+sc::MyIterator<T> & MyIterator<T>::operator--( void ){
+    --this->current;
     return *this;
 }
 
-// template < typename T >
-// sc::MyIterator<T> MyIterator<T>::operator--( int ){
-// }
+template < typename T >
+sc::MyIterator<T> MyIterator<T>::operator--( int ){
+    auto temp(*this);
+    --this->current;
+    return temp;
+}
 
 template < typename T >
 bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ) const {
@@ -51,6 +68,11 @@ bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ) const {
 template < typename T >
 bool sc::MyIterator<T>::operator!=( const MyIterator<T> & rhs ) const {
     return this->current != rhs.current;
+}
+
+template < typename T >
+MyIterator<T> MyIterator<T>::operator-( const MyIterator & rhs ) const{
+    return this->current - rhs.current;
 }
 
 // [I] SPECIAL MEMBERS

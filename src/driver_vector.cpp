@@ -16,7 +16,7 @@ int main(){
     vect->push_back(2);
     vect->push_back(3); 
 
-    std::cout << *vect;
+    std::cout << *vect << std::endl;
 
     // teste de capacidade e tamanho do vetor
     assert(vect->capacity() == 4 && "Error: reserve is not working correctly.\n");
