@@ -7,7 +7,7 @@ using namespace std;
 int main(){
     unique_ptr< sc::vector<int> > vect(new sc::vector<int>);
     
-#ifdef DEBUG
+//#ifdef DEBUG
     // DEBUG
     
     // inserção três Elementos ordenados
@@ -32,9 +32,8 @@ int main(){
     sc::vector<int> vect3 {{1, 2, 4, 6}};
     std::cout << vect3 << std::endl;
 
-    auto a(vect2.begin()+1);
-    auto b(vect2.begin()+3);
-
+    //auto a(vect2.begin()+1);
+    //auto b(vect2.begin()+3);
     //sc::vector<int> vect4(a,b );      <- NÃO ESTÁ FUNCIONANDO
 
     // Testar assign
@@ -53,6 +52,10 @@ int main(){
 
     std::cout << "POP_FRONT() ";
     vect5.pop_front();
+    std::cout << vect5 << std::endl;
+
+    std::cout << "INSERT()";
+    //vect5.INSERT(vect[0], 6);
     std::cout << vect5 << std::endl;
 
 //---------------------------------------------------------------
@@ -92,6 +95,6 @@ int main(){
     assert(vect->capacity() == 1 && "Error: The capacity function is not working. \n");
     vector<int> vtr;
 //     std::cout << vtr;
-#endif
+//#endif
 	return 0;
 }

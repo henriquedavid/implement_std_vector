@@ -62,12 +62,14 @@ sc::MyIterator<T> MyIterator<T>::operator--( int ){
 
 template < typename T >
 sc::MyIterator<T> MyIterator<T>::operator+( int value ){
-         return iterator(this->current+value); // conversão explicita
+         //return iterator(this->current+value); // conversão explicita
+    return this->current+value;
 }
 
 template < typename T >
 sc::MyIterator<T> MyIterator<T>::operator-( int value ){
-         return iterator(this->current-value); // conversão explicita
+         //return iterator(this->current-value); // conversão explicita
+    return this->current-value;
 }
 
 
@@ -248,10 +250,9 @@ template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference value_ ){
     if(m_end == this->m_capacity)
         this->reserve(this->m_capacity * 2);
-    
 
     if(pos_ > m_storage && pos_ < m_storage+this->m_end){
-        *pos_ = value_;
+        *pos_ = *value_;
     }
 }
 
