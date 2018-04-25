@@ -16,6 +16,7 @@ int main(){
     vect->push_back(2);
     vect->push_back(3);
 
+    // Teste de execução de criação de vetores por quantidade e por outro vetor.
     sc::vector<int> vect1(2);
     vect1.push_back(10);
 
@@ -26,6 +27,35 @@ int main(){
     std::cout << "Vetor2: ";
     std::cout << vect2 << std::endl;
 
+    // Teste de criação com lista
+
+    sc::vector<int> vect3 {{1, 2, 4, 6}};
+    std::cout << vect3 << std::endl;
+
+    auto a(vect2.begin()+1);
+    auto b(vect2.begin()+3);
+
+    //sc::vector<int> vect4(a,b );      <- NÃO ESTÁ FUNCIONANDO
+
+    // Testar assign
+    sc::vector<int> vect5 {{1,2,3}};
+
+    std::cout << vect5 << std::endl;
+    vect5.assign({4,5,6});
+    std::cout << vect5 << std::endl;
+
+    vect5.push_front(5);
+    std::cout << vect5 << std::endl;
+
+    std::cout << "POP_BACK() ";
+    vect5.pop_back();
+    std::cout << vect5 << std::endl;
+
+    std::cout << "POP_FRONT() ";
+    vect5.pop_front();
+    std::cout << vect5 << std::endl;
+
+//---------------------------------------------------------------
     std::cout << *vect << std::endl;
 
     // teste de capacidade e tamanho do vetor

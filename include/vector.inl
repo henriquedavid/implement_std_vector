@@ -112,9 +112,29 @@ vector<T>::vector(const vector& vtr)
     
 }
 
-//vector(vector&&);
-//template < typename InputItr >
-//vector( InputItr, InputItr );
+template < typename T >
+vector<T>::vector( const std::initializer_list<T> & rhf ){
+    this->m_capacity = rhf.size()+1;
+    this->m_storage = new T[m_capacity];
+    std::copy( rhf.begin(), rhf.end(), &m_storage[0]);
+
+
+    this->m_end = rhf.size();
+}
+
+template < typename T >
+template < typename InputItr >
+vector<T>::vector( InputItr first, InputItr last ){
+    auto distance = last - first;
+
+    this->m_capacity = distance+1;
+    this->m_storage = new T[m_capacity];
+
+    std::copy( first , last, &m_storage);
+    this->m_end = distance;
+}
+
+
 /*
  * template < typename T >
  * vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
@@ -183,16 +203,20 @@ void vector<T>::clear( void ){
     this->m_capacity = DEFAULT_SIZE + 1;
     this->m_end = DEFAULT_SIZE;
 }
-/*
- * template < typename T >
- * void vector<T>::push_front( const_reference value ){
- *    for( auto i(this->m_end) ; i > 0 ; i-- ){
- *        swap(*(this->m_storage+i-1), *(this->m_storage+i));
- *    }
- *(this->m_storage) = value;
- * 
- * }
- */
+
+template < typename T >
+void vector<T>::push_front( vector<T>::const_reference value ){
+    if(m_end == this->m_capacity)
+        this->reserve( this->m_capacity * 2 );
+
+    for( auto i(this->m_end) ; i > 0 ; --i ){
+        std::swap(*(this->m_storage+i-1), *(this->m_storage+i));
+    }
+    this->m_storage[0] = value;
+    m_end++;
+ 
+}
+
 template < typename T >
 void vector<T>::push_back( vector<T>::const_reference value ){
     if(m_end == this->m_capacity)
@@ -200,9 +224,30 @@ void vector<T>::push_back( vector<T>::const_reference value ){
     this->m_storage[this->m_end++] = value;
 }
 
-// void pop_back( void );
-//void pop_front( void );
-//iterator insert( iterator , const_reference );
+template < typename T >
+void vector<T>::pop_back( void ){
+    --this->m_end;
+}
+
+template < typename T >
+void vector<T>::pop_front( void ){
+    for( auto i(0u) ; i < m_end ; ++i )
+        std::swap(*(this->m_storage+i), *(this->m_storage+i+1));
+
+    --this->m_end;
+}
+
+template < typename T >
+typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference value_ ){
+    if(m_end == this->m_capacity)
+        this->reserve(this->m_capacity * 2);
+    
+
+    if(pos_ > m_storage && pos_ < m_storage+this->m_end){
+        *pos_ = value_;
+    }
+}
+
 //template < typename InputItr >
 //iterator insert( iterator , InputItr , InputItr );
 //iterator insert( iterator, std::initializer_list< value_type > );
@@ -234,7 +279,14 @@ void vector<T>::assign( vector<T>::const_reference value )
         *(first++) = value;
 }
 
-//void assign( std::initializer_list<T> );
+template < typename T >
+void vector<T>::assign( std::initializer_list<T> il ){
+        if(il.size() > this->m_capacity)
+            this->reserve(il.size() * 2);
+
+        std::copy( il.begin(), il.end(), &m_storage[0]);
+        m_end = il.size();
+}
 //template < typename InputItr >
 //void assign( InputItr, InputItr );
 
@@ -270,7 +322,7 @@ typename vector<T>::const_reference vector<T>::operator[]( size_type pos ) const
 
 template < typename T >
 typename vector<T>::reference vector<T>::operator[]( size_type pos ) {
-    return this->m_storage [pos];
+    return this->m_storage[pos];
 }
 
 template < typename T >

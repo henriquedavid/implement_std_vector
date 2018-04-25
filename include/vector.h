@@ -86,9 +86,11 @@ namespace sc {
             ~vector( );
             vector(const vector&);
             //vector(vector&&);
+            vector( const std::initializer_list<T> &);
             
-            //template < typename InputItr >
-            //vector( InputItr, InputItr );
+            template < typename InputItr >
+            vector( InputItr, InputItr );                   // <---- REVER
+
             vector & operator=( const vector & );
             vector & operator=( vector && );
 
@@ -110,16 +112,16 @@ namespace sc {
             void clear( void );
             void push_front( const_reference );
             void push_back( const_reference );
-            //void pop_back( void );
-            //void pop_front( void );
-            //iterator insert( iterator , const_reference );
+            void pop_back( void );
+            void pop_front( void );
+            iterator insert( iterator , const_reference );
             //template < typename InputItr >
             //iterator insert( iterator , InputItr , InputItr );
             //iterator insert( iterator, std::initializer_list< value_type > );
             void reserve( size_type );
             //void shrink_to_fit( void );
             void assign( const_reference );
-            //void assign( std::initializer_list<T> );
+            void assign( std::initializer_list<T> );
             //template < typename InputItr >
             //void assign( InputItr, InputItr );
             iterator erase( iterator, iterator );
