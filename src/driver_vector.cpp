@@ -5,9 +5,9 @@
 
 using namespace std;
 int main(){
-    
     unique_ptr< sc::vector<int> > vect(new sc::vector<int>);
     
+#ifdef DEBUG
     // DEBUG
     
     // inserção três Elementos ordenados
@@ -92,5 +92,6 @@ int main(){
     assert(vect->capacity() == 1 && "Error: The capacity function is not working. \n");
     vector<int> vtr;
 //     std::cout << vtr;
+#endif
 	return 0;
 }

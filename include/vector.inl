@@ -62,8 +62,14 @@ sc::MyIterator<T> MyIterator<T>::operator--( int ){
 
 template < typename T >
 sc::MyIterator<T> MyIterator<T>::operator+( int value ){
-         return this->current+value;
+         return iterator(this->current+value); // conversão explicita
 }
+
+template < typename T >
+sc::MyIterator<T> MyIterator<T>::operator-( int value ){
+         return iterator(this->current-value); // conversão explicita
+}
+
 
 template < typename T >
 bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ) const {
@@ -84,10 +90,10 @@ typename MyIterator<T>::difference_type MyIterator<T>::operator-( const MyIterat
 
 // [I] SPECIAL MEMBERS
 template< typename T>
-vector<T>::vector( size_type value ) {
-    this->m_end = DEFAULT_SIZE;
-    this->m_capacity = value+1;
-    this->m_storage = new T[m_capacity];
+vector<T>::vector( size_type size ) {
+    this->m_end = size;
+    this->m_capacity = size;
+    this->m_storage = new T[size];
 }
 
 template < typename T >
@@ -100,7 +106,8 @@ template < typename T >
 vector<T>::vector(const vector& vtr)
 {
     this->m_capacity = vtr.m_capacity;
-    this->m_storage = new T[m_capacity];
+    delete [] this->m_storage;
+    this->m_storage = new T[this->m_capacity];
     this->m_end = vtr.m_end;
    
     auto f(this->begin());
@@ -199,8 +206,8 @@ bool vector<T>::empty( void ) const {
 template < typename T >
 void vector<T>::clear( void ){
     delete [] this->m_storage;
-    this->m_storage = new T[DEFAULT_SIZE + 1];
-    this->m_capacity = DEFAULT_SIZE + 1;
+    this->m_storage = new T[DEFAULT_SIZE];
+    this->m_capacity = DEFAULT_SIZE;
     this->m_end = DEFAULT_SIZE;
 }
 

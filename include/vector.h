@@ -40,7 +40,9 @@ namespace sc {
             MyIterator operator--( int ); 
             // it--
 
-            MyIterator operator+( int ); 
+            MyIterator operator+( int );
+            
+            MyIterator operator-( int );
 
             MyIterator * operator->( void ) const;
             
@@ -82,7 +84,7 @@ namespace sc {
             // [I] SPECIAL MEMBERS
 
             /// Gera um vetor com a configuração padrão - tamanho 0.
-            vector( size_type value = 0 );
+            vector( size_type size = DEFAULT_SIZE );
             ~vector( );
             vector(const vector&);
             //vector(vector&&);
