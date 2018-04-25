@@ -127,8 +127,8 @@ namespace sc {
             void shrink_to_fit( void );
             void assign( const_reference );
             void assign( std::initializer_list<T> );
-            //template < typename InputItr >
-            //void assign( InputItr, InputItr );
+            template < typename InputItr >
+            void assign( InputItr, InputItr );
             iterator erase( iterator, iterator );
             iterator erase( iterator );
 

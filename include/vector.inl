@@ -316,10 +316,18 @@ void vector<T>::assign( std::initializer_list<T> il ){
         std::copy( il.begin(), il.end(), &m_storage[0]);
         m_end = il.size();
 }
+template < typename T >
+template < typename InputItr >
+void vector<T>::assign( InputItr first, InputItr last){
+    vector<T>::size_type size = last - first;
+    if(size > this->m_capacity)
+        this->reserve(size * 2);
+    
+    for(auto i(0u); i < size; ++i)
+        this->m_storage[i] = first[i];
 
-// TODO: fazer essa
-//template < typename InputItr >
-//void assign( InputItr, InputItr );
+    this->m_size = size;
+}
 
 template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator first, vector<T>::iterator last){
