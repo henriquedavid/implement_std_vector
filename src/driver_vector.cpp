@@ -59,7 +59,7 @@ int main(){
     std::cout << vect5 << std::endl;
     
     sc::vector<int> vect7{{1,2,3, 4, 5, 6}};
-    sc::vector<int> vect6(vect7.begin()+1, vect7.end()+4);
+    sc::vector<int> vect6(vect7.begin()+1, vect7.begin()+4);
     std::cout << "construtor ranges()\n";
     std::cout << vect6 << std::endl;
 

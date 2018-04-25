@@ -90,7 +90,7 @@ namespace sc {
             vector( size_type size = DEFAULT_SIZE );
             ~vector( );
             vector(const vector&);
-            //vector(vector&&);
+            vector(vector&&);
             vector( const std::initializer_list<T> &);
             
             template < typename InputItr >
@@ -124,7 +124,7 @@ namespace sc {
             //iterator insert( iterator , InputItr , InputItr );
             //iterator insert( iterator, std::initializer_list< value_type > );
             void reserve( size_type );
-            //void shrink_to_fit( void );
+            void shrink_to_fit( void );
             void assign( const_reference );
             void assign( std::initializer_list<T> );
             //template < typename InputItr >

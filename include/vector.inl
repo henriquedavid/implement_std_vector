@@ -92,8 +92,8 @@ bool sc::MyIterator<T>::operator!=( const MyIterator<T> & rhs ) const {
 }
 
 template < typename T >
-typename MyIterator<T>::difference_type MyIterator<T>::operator-( const MyIterator & rhs ) const{
-    return this->current - rhs.current;
+typename MyIterator<T>::difference_type MyIterator<T>::operator-( const MyIterator<T> & rhs ) const{
+    return MyIterator<T>::difference_type(this->current - rhs.current);
 }
 
 // -------------------- VECTOR CLASS ---------------------------
@@ -113,7 +113,7 @@ sc::vector<T>::~vector( ) {
 
 
 template < typename T >
-vector<T>::vector(const vector& vtr)
+vector<T>::vector(const vector<T>& vtr)
 {
     this->m_capacity = vtr.m_capacity;
     this->m_storage = new T[this->m_capacity];
@@ -129,6 +129,9 @@ vector<T>::vector(const vector& vtr)
 }
 
 template < typename T >
+vector<T>::vector(vector<T>&&) = default; // TODO: talvez seja necessario
+
+template < typename T >
 vector<T>::vector( const std::initializer_list<T> & rhf ){
     this->m_capacity = rhf.size()+1;
     this->m_storage = new T[m_capacity];
@@ -141,8 +144,7 @@ vector<T>::vector( const std::initializer_list<T> & rhf ){
 template<class T>
 template < typename InputItr >
 vector<T>::vector( InputItr first, InputItr last){
-    // TODO: calcular a distancia de dois iterators
-//     this->m_capacity = std::distance(first, last);
+    this->m_capacity = last - first;
     std::cout << last - first;
     this->m_storage = new T[this->m_capacity];
     this->m_end = this->m_capacity;
@@ -154,7 +156,6 @@ vector<T>::vector( InputItr first, InputItr last){
 
 template < typename T >
   vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
-  
  	size_type capacity = vtr.capacity();
  	this->m_storage = new T[capacity];
  	this->m_end = vtr.size();
@@ -167,6 +168,8 @@ template < typename T >
  	}
  	return *this;
 }
+
+// vector & operator=( vector && ); //TODO: talvez seja necessario
 
 // [II] ITERATORS
 
@@ -262,6 +265,7 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference 
     return pos_;
 }
 
+// TODO: fazer essa
 //template < typename InputItr >
 //iterator insert( iterator , InputItr , InputItr );
 //iterator insert( iterator, std::initializer_list< value_type > );
@@ -281,7 +285,18 @@ void vector<T>::reserve(vector<T>::size_type size)
     delete [] this->m_storage;
     this->m_storage = new_storage;
 }
-//void shrink_to_fit( void );
+
+template < typename T >
+void vector<T>::shrink_to_fit( void )
+{
+    typename vector<T>::ponter new_storage = new vector<T>::value_type[this->m_end];
+    for(auto i(0u); i < this->m_end; ++i){
+        new_storage[i] = this->m_storage[i];
+    }
+    delete [] this->m_storage;
+    this->m_storage = new_storage;
+    this->capacity = this->m_end;
+}
 
 template < typename T >
 void vector<T>::assign( vector<T>::const_reference value )
@@ -301,12 +316,14 @@ void vector<T>::assign( std::initializer_list<T> il ){
         std::copy( il.begin(), il.end(), &m_storage[0]);
         m_end = il.size();
 }
+
+// TODO: fazer essa
 //template < typename InputItr >
 //void assign( InputItr, InputItr );
 
 template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator first, vector<T>::iterator last){
-    auto aux = last;
+    auto aux = last; // TODO: o end e o capacity que mudar
     auto p_m_end = this->m_storage + this->m_end;
     while(aux < p_m_end)
     {
@@ -314,7 +331,7 @@ typename vector<T>::iterator vector<T>::erase( vector<T>::iterator first, vector
     }
     
 }
-
+// TODO: fazer essa
 //iterator erase( iterator );
 
 // [V] Element access
@@ -401,7 +418,7 @@ bool vector<T>::operator!=( const vector & vtr) const{
 
 
 template < typename T >
-void swap(vector<T>& first_, vector<T> & second_ ){
+void swap(vector<T>& first_, vector<T> & second_ ){ // TODO: o swap está em um valor
     auto valor = *first_;
     *first_ = *second_;
     *second_ = valor;
@@ -434,3 +451,4 @@ bool operator!=( const vector<T>& lhs, const vector<T>& rhs ){
     
     return true;
 }
+
