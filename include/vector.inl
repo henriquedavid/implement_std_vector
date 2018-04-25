@@ -108,7 +108,7 @@ template < typename T >
 vector<T>::vector(const vector& vtr)
 {
     this->m_capacity = vtr.m_capacity;
-    delete [] this->m_storage;
+    //delete [] this->m_storage;
     this->m_storage = new T[this->m_capacity];
     this->m_end = vtr.m_end;
    
