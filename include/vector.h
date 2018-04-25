@@ -2,7 +2,6 @@
 #define SC_VECTOR_H // A include guard do STL é _STL_VECTOR_H, no entanto, é legal colocar o nome do namespace mesmo assim para nao confundir.
 
 #include <iostream>
-
 namespace sc {
     
       template < typename T>
@@ -95,7 +94,7 @@ namespace sc {
             vector( const std::initializer_list<T> &);
             
             template < typename InputItr >
-            vector( InputItr, InputItr );                   // <---- REVER
+            vector( InputItr, InputItr );          
 
             vector & operator=( const vector & );
             vector & operator=( vector && );

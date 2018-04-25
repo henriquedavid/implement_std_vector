@@ -62,19 +62,17 @@ sc::MyIterator<T> MyIterator<T>::operator--( int ){
 
 template < typename T >
 sc::MyIterator<T> MyIterator<T>::operator+( int value ){
-         //return iterator(this->current+value); // conversão explicita
-    return this->current+value;
+    return MyIterator<T>(this->current+value); // conversão explicita
 }
 
 template < typename T >
 sc::MyIterator<T> MyIterator<T>::operator-( int value ){
-         //return iterator(this->current-value); // conversão explicita
-    return this->current-value;
+         return MyIterator<T>(this->current-value); // conversão explicita
 }
 
 template < typename T >
 bool MyIterator<T>::operator<=( const MyIterator<T> & rhs ) const {
-    return this->current <= rhs.current ;
+    return this->current <= rhs.current;
 }
 
 template < typename T >
@@ -118,7 +116,6 @@ template < typename T >
 vector<T>::vector(const vector& vtr)
 {
     this->m_capacity = vtr.m_capacity;
-    //delete [] this->m_storage;
     this->m_storage = new T[this->m_capacity];
     this->m_end = vtr.m_end;
    
@@ -141,37 +138,35 @@ vector<T>::vector( const std::initializer_list<T> & rhf ){
     this->m_end = rhf.size();
 }
 
-template < typename T >
+template<class T>
 template < typename InputItr >
-vector<T>::vector( InputItr first, InputItr last ){
-    auto distance = last - first;
-
-    this->m_capacity = distance+1;
-    this->m_storage = new T[m_capacity];
-
-    std::copy( first , last, &m_storage);
-    this->m_end = distance;
+vector<T>::vector( InputItr first, InputItr last){
+    // TODO: calcular a distancia de dois iterators
+//     this->m_capacity = std::distance(first, last);
+    std::cout << last - first;
+    this->m_storage = new T[this->m_capacity];
+    this->m_end = this->m_capacity;
+    for(auto i(0u); i < this->m_end; ++i){
+        this->m_storage[i] = *(first+i); 
+    }
 }
 
 
-/*
- * template < typename T >
- * vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
- * 
- *	size_type capacity = vtr.capacity();
- *	this->m_storage = new T[capacity];
- *	this->m_end = vtr.size();
- *	this->m_capacity = capacity;
- * 
- *    auto vtr_storage = vtr.begin();
- *    
- *	for( auto i(0u); i < capacity; i++ ){
- *        this->m_storage[i] = vtr_storage[i];
- *	}
- *	return *this;
- * }
- */
-// vector & operator=( vector && );
+template < typename T >
+  vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
+  
+ 	size_type capacity = vtr.capacity();
+ 	this->m_storage = new T[capacity];
+ 	this->m_end = vtr.size();
+ 	this->m_capacity = capacity;
+  
+     auto vtr_storage = vtr.begin();
+     
+ 	for( auto i(0u); i < capacity; i++ ){
+         this->m_storage[i] = vtr_storage[i];
+ 	}
+ 	return *this;
+}
 
 // [II] ITERATORS
 

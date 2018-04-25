@@ -7,7 +7,7 @@ using namespace std;
 int main(){
     unique_ptr< sc::vector<int> > vect(new sc::vector<int>);
     
-//#ifdef DEBUG
+#ifdef DEBUG
     // DEBUG
     
     // inserção três Elementos ordenados
@@ -57,13 +57,14 @@ int main(){
     std::cout << "INSERT()";
     vect5.insert(&vect5[0], 10);
     std::cout << vect5 << std::endl;
+    
+    sc::vector<int> vect7{{1,2,3, 4, 5, 6}};
+    sc::vector<int> vect6(vect7.begin()+1, vect7.end()+4);
+    std::cout << "construtor ranges()\n";
+    std::cout << vect6 << std::endl;
 
 //---------------------------------------------------------------
     std::cout << *vect << std::endl;
-
-    // teste de capacidade e tamanho do vetor
-    assert(vect->capacity() == 4 && "Error: reserve is not working correctly.\n");
-    assert(vect->size() == 3 && "Error: reserve is not working correctly.\n");
     
     // teste do operator []
     (*vect)[1] = 4;
@@ -71,7 +72,7 @@ int main(){
     
     // teste do at fora do intervalo
     try {
-        vect->at(3) = 5;
+        vect->at(10) = 5;
         assert(!"Error: The exception was not caught\n");
     } catch(out_of_range e) {
         
@@ -92,9 +93,7 @@ int main(){
     vect->clear();
     assert(vect->empty() && "Error: The empty function is not working. \n");
     assert(vect->size() == 0 && "Error: The size function is not working. \n");
-    assert(vect->capacity() == 1 && "Error: The capacity function is not working. \n");
-    vector<int> vtr;
-//     std::cout << vtr;
-//#endif
+    assert(vect->capacity() == 0 && "Error: The capacity function is not working. \n");
+#endif
 	return 0;
 }
