@@ -72,6 +72,16 @@ sc::MyIterator<T> MyIterator<T>::operator-( int value ){
     return this->current-value;
 }
 
+template < typename T >
+bool MyIterator<T>::operator<=( const MyIterator<T> & rhs ) const {
+    return this->current <= rhs.current ;
+}
+
+template < typename T >
+bool MyIterator<T>::operator>=( const MyIterator<T> & rhs ) const {
+    return this->current >= rhs.current ;
+}
+
 
 template < typename T >
 bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ) const {
@@ -251,9 +261,10 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference 
     if(m_end == this->m_capacity)
         this->reserve(this->m_capacity * 2);
 
-    if(pos_ > m_storage && pos_ < m_storage+this->m_end){
-        *pos_ = *value_;
+    if(pos_ >= m_storage && pos_ <= m_storage+this->m_end){
+        *pos_ = value_;
     }
+    return pos_;
 }
 
 //template < typename InputItr >

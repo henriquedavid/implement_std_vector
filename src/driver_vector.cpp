@@ -55,7 +55,7 @@ int main(){
     std::cout << vect5 << std::endl;
 
     std::cout << "INSERT()";
-    //vect5.INSERT(vect[0], 6);
+    vect5.insert(&vect5[0], 10);
     std::cout << vect5 << std::endl;
 
 //---------------------------------------------------------------

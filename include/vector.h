@@ -45,6 +45,10 @@ namespace sc {
             MyIterator operator-( int );
 
             MyIterator * operator->( void ) const;
+
+            bool operator<=( const MyIterator<T> & rhs ) const;
+
+            bool operator>=( const MyIterator<T> & rhs ) const;
             
             /// Comparar dois iteradores se são iguais.
             bool operator==( const MyIterator<T> & rhs ) const;
