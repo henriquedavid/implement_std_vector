@@ -323,16 +323,30 @@ void vector<T>::assign( std::initializer_list<T> il ){
 
 template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator first, vector<T>::iterator last){
-    auto aux = last; // TODO: o end e o capacity que mudar
+    if(last > m_storage + m_end) // não posso remover elementos depois do end
+        last = this->m_storage + m_end;            // TODO: decidir como será resolvido e colocar com issue no README.md
+    auto aux = last; 
     auto p_m_end = this->m_storage + this->m_end;
     while(aux < p_m_end)
-    {
         *(first++) = *(aux++);
-    }
     
+    this->m_end -= last - first;
+    return first; // TODO: verificar se está correto
 }
-// TODO: fazer essa
-//iterator erase( iterator );
+
+
+template < typename T >
+typename vector<T>::iterator vector<T>::erase( vector<T>::iterator pos){
+    if(pos >= m_storage + m_end) // não posso remover elementos no end ou depois
+        return MyIterator<T>(nullptr); // TODO: decidir o que fazer
+    auto old_pos = pos;
+    auto aux = pos+1;
+    auto p_m_end = this->m_storage + this->m_end;
+    while(aux < p_m_end)
+        *(pos++) = *(aux++);
+    this->m_end--;
+    return old_pos;
+}
 
 // [V] Element access
 

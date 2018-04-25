@@ -130,7 +130,7 @@ namespace sc {
             //template < typename InputItr >
             //void assign( InputItr, InputItr );
             iterator erase( iterator, iterator );
-            //iterator erase( iterator );
+            iterator erase( iterator );
 
             // [V] Element access
 
