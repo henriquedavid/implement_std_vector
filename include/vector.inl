@@ -4,7 +4,6 @@ using namespace sc;
 
 // MYITERATOR CLASS METHOD
 
-
 template < typename T >
 MyIterator<T>::MyIterator(MyIterator<T>::pointer pt){
     this->current = pt;
@@ -98,7 +97,10 @@ typename MyIterator<T>::difference_type MyIterator<T>::operator-( const MyIterat
 
 // -------------------- VECTOR CLASS ---------------------------
 
+
 // [I] SPECIAL MEMBERS
+
+
 template< typename T>
 vector<T>::vector( size_type size ) {
     this->m_end = size;
@@ -129,7 +131,11 @@ vector<T>::vector(const vector<T>& vtr)
 }
 
 template < typename T >
-vector<T>::vector(vector<T>&&) = default; // TODO: talvez seja necessario
+vector<T>::vector(vector<T>&& vtr){
+    this->capacity = vtr.capacity;
+    this->size = vtr.size;
+    this->m_storage = std::move(vtr.m_storage);
+}
 
 template < typename T >
 vector<T>::vector( const std::initializer_list<T> & rhf ){
@@ -153,7 +159,6 @@ vector<T>::vector( InputItr first, InputItr last){
     }
 }
 
-
 template < typename T >
   vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
  	size_type capacity = vtr.capacity();
@@ -169,7 +174,13 @@ template < typename T >
  	return *this;
 }
 
-// vector & operator=( vector && ); //TODO: talvez seja necessario
+template < typename T >
+vector<T> & vector<T>::operator=( vector<T> && vtr ){
+    this->capacity = vtr.capacity;
+    this->size = vtr.size;
+    this->m_storage = std::move(vtr.m_storage);
+    return *this;
+}
 
 // [II] ITERATORS
 
@@ -196,6 +207,7 @@ typename vector<T>::const_iterator vector<T>::cend(void) const {
 
 // [III] Capacity
 
+
 template < typename T >
 typename vector<T>::size_type vector<T>::size( void ) const {
     return this->m_end;
@@ -211,7 +223,9 @@ bool vector<T>::empty( void ) const {
     return this->m_end == 0;
 }
 
+
 // [IV] Modifiers
+
 
 template < typename T >
 void vector<T>::clear( void ){
@@ -269,7 +283,6 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference 
 //template < typename InputItr >
 //iterator insert( iterator , InputItr , InputItr );
 //iterator insert( iterator, std::initializer_list< value_type > );
-
 
 template < typename T >
 void vector<T>::reserve(vector<T>::size_type size)
@@ -356,7 +369,9 @@ typename vector<T>::iterator vector<T>::erase( vector<T>::iterator pos){
     return old_pos;
 }
 
+
 // [V] Element access
+
 
 template < typename T >
 typename vector<T>::const_reference vector<T>::back( void ) const {
@@ -436,14 +451,21 @@ bool vector<T>::operator!=( const vector & vtr) const{
     return true;
 }
 
+
 // [VII] Friend functions.
 
 
 template < typename T >
 void swap(vector<T>& first_, vector<T> & second_ ){ // TODO: o swap está em um valor
-    auto valor = *first_;
-    *first_ = *second_;
-    *second_ = valor;
+    vector<T> tmp = vector<T>::move(first_);    // | Move as referencias do container
+    
+    first_.m_storage = second_.m_storage;       // | Iguala referencias
+    first_.m_capacity = second_.m_capacity;     // !
+    first_.m_size = second_.m_size;             // | Iguala atributos
+    
+    second_.m_storage = tmp.m_storage;          // | Iguala referencias
+    second_.m_capacity = tmp.m_capacity;        // !
+    second_.m_size = tmp.m_size;                // | Iguala atributos
 }
 
 // [+] Non-member functions
