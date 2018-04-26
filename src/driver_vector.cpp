@@ -16,9 +16,13 @@ int main(){
     vect->push_back(2);
     vect->push_back(3);
 
+    std::cout << *vect << std::endl;
+
     // Teste de execução de criação de vetores por quantidade e por outro vetor.
     sc::vector<int> vect1(2);
     vect1.push_back(10);
+    vect1.push_back(20);
+    vect1.push_back(30);
 
     std::cout << "Vetor1: ";
     std::cout << vect1 << std::endl;
@@ -32,9 +36,11 @@ int main(){
     sc::vector<int> vect3 {{1, 2, 4, 6}};
     std::cout << vect3 << std::endl;
 
-    //auto a(vect2.begin()+1);
-    //auto b(vect2.begin()+3);
-    //sc::vector<int> vect4(a,b );      <- NÃO ESTÁ FUNCIONANDO
+    std::cout << "VECTOR 4 ";
+    auto a(vect2.begin()+1);
+    auto b(vect2.begin()+3);
+    sc::vector<int> vect4(a,b );      //<- NÃO ESTÁ FUNCIONANDO
+    std::cout << vect4 << std::endl;
 
     // Testar assign
     sc::vector<int> vect5 {{1,2,3}};
@@ -66,7 +72,14 @@ int main(){
 
     std::cout << "INSERT() 3 ";
     vect5.insert(vect5.begin(), {3, 4});
-    // std::cout << vect5 << std::endl;
+    std::cout << vect5 << std::endl;
+
+    std::cout << "SWAP() ";
+    sc::swap(vect2, vect5);
+    std::cout << "vect2 new : ";
+    std::cout << vect2;
+    std::cout << "vect5 new : ";
+    std::cout << vect5; 
     
     // sc::vector<int> vect7{{1,2,3, 4, 5, 6}};
     // sc::vector<int> vect6(vect7.begin()+1, vect7.begin()+4);

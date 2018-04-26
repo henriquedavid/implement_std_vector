@@ -103,7 +103,7 @@ typename MyIterator<T>::difference_type MyIterator<T>::operator-( const MyIterat
 
 template< typename T>
 vector<T>::vector( size_type size ) {
-    this->m_end = size;
+    this->m_end = 0;
     this->m_capacity = size;
     this->m_storage = new T[size];
 }
@@ -494,12 +494,12 @@ bool vector<T>::operator!=( const vector & vtr) const{
 // [VII] Friend functions.
 
 
-template < typename T >
+/*template < typename T >
 void swap(vector<T>& first_, vector<T> & second_ ){
     vector<T> tmp = std::move(first_);          // | Move o container first_ para o tmp
     first_ = std::move(second_);                // | Move o container second_ para o first_
     second_ = std::move(tmp);                   // | Move o container tmp para o second_
-}
+}*/
 
 // [+] Non-member functions
 

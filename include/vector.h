@@ -161,9 +161,12 @@ namespace sc {
                   return os_;
             }
 
-            
             template < typename TT >
-            friend void swap(vector<TT>& first_, vector<TT> & second_ );
+            friend void swap(vector<TT>& first_, vector<TT> & second_ ){
+                  vector<T> tmp = std::move(first_);          // | Move o container first_ para o tmp
+                  first_ = std::move(second_);                // | Move o container second_ para o first_
+                  second_ = std::move(tmp);                   // | Move o container tmp para o second_
+            }
 
         private:
 
