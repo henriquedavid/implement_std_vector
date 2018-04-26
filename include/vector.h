@@ -15,7 +15,7 @@ namespace sc {
             using const_reference = const value_type &;  
             using difference_type = std::ptrdiff_t;
 
-            MyIterator( pointer pt = nullptr );
+            explicit MyIterator( pointer pt = nullptr );
 
             MyIterator( const MyIterator<T> &);
             
@@ -121,7 +121,7 @@ namespace sc {
             iterator insert( iterator , const_reference );
             template < typename InputItr >
             iterator insert( iterator , InputItr , InputItr );
-            iterator insert( iterator, std::initializer_list< value_type > );
+            iterator insert( iterator, std::initializer_list< T > );
             void reserve( size_type );
             void shrink_to_fit( void );
             void assign( size_type count_, const_reference value_);

@@ -257,14 +257,17 @@ void vector<T>::push_back( vector<T>::const_reference value ){
 
 template < typename T >
 void vector<T>::pop_back( void ){
+    if(this->empty())
+        return;
     --this->m_end;
 }
 
 template < typename T >
 void vector<T>::pop_front( void ){
+    if(this->empty())
+        return;
     for( auto i(0u) ; i < m_end ; ++i )
         std::swap(*(this->m_storage+i), *(this->m_storage+i+1));
-
     --this->m_end;
 }
 
@@ -273,8 +276,7 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference 
     if(m_end == this->m_capacity)
         this->reserve(this->m_capacity * 2);
 
-    if( pos_ >= this->m_storage && pos_ <= this->m_storage+m_end)
-        *pos_ = value_;
+    *pos_ = value_;
     
     return pos_;
 }
@@ -288,12 +290,9 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , InputItr first_ 
     auto original_(pos_);
     int i = 0;
 
-
-    if( pos_ >= this->m_storage && pos_ <= this->m_storage+m_end){
-        while(first_+i != last_){
-            *(pos_+i) = *(first_+i);
-            i++;
-        }
+    while(first_+i != last_){
+        *(pos_+i) = *(first_+i);
+        i++;
     }
 
     return original_;
@@ -301,7 +300,7 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , InputItr first_ 
 }
 
 template < typename T >
-typename vector<T>::iterator vector<T>::insert( iterator pos_, std::initializer_list< vector<T>::value_type > ilist_ ){
+typename vector<T>::iterator vector<T>::insert( iterator pos_, std::initializer_list< T > ilist_ ){
 
     if( ilist_.size() == 0 )
         return pos_;
@@ -311,11 +310,7 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_, std::initializer_
 
     auto original_(pos_);
 
-    if( pos_ >= this->m_storage && pos_ <= this->m_storage+m_end){
-        
-        std::copy( ilist_.begin(), ilist_.end(), pos_ );
-
-    }
+    std::copy( ilist_.begin(), ilist_.end(), &(*pos_)); // sem conversao implicita de iterator para ponteiro
 
     return original_;
 
@@ -379,24 +374,31 @@ void vector<T>::assign( InputItr first, InputItr last){
     this->m_size = size;
 }
 
+/*! 
+ *\note if last iterator is after the container end, last will be set to the vector end and
+ *the methode will return first argument. Erasing a element after last valid element is a no-op.
+*/
 template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator first, vector<T>::iterator last){
     if(last > m_storage + m_end) // não posso remover elementos depois do end
         last = this->m_storage + m_end;            // TODO: decidir como será resolvido e colocar com issue no README.md
+    auto old_first = first;
     auto aux = last; 
     auto p_m_end = this->m_storage + this->m_end;
     while(aux < p_m_end)
         *(first++) = *(aux++);
     
     this->m_end -= last - first;
-    return first; // TODO: verificar se está correto
+    return old_first; // TODO: verificar se está correto
 }
 
-
+/*! 
+ *\note Erasing a element after last valid element is a no-op.
+*/
 template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator pos){
     if(pos >= m_storage + m_end) // não posso remover elementos no end ou depois
-        return MyIterator<T>(nullptr); // TODO: decidir o que fazer
+        return MyIterator<T>(m_storage + m_end); // TODO: decidir o que fazer
     auto old_pos = pos;
     auto aux = pos+1;
     auto p_m_end = this->m_storage + this->m_end;
@@ -493,16 +495,10 @@ bool vector<T>::operator!=( const vector & vtr) const{
 
 
 template < typename T >
-void swap(vector<T>& first_, vector<T> & second_ ){ // TODO: o swap está em um valor
-    vector<T> tmp = vector<T>::move(first_);    // | Move as referencias do container
-    
-    first_.m_storage = second_.m_storage;       // | Iguala referencias
-    first_.m_capacity = second_.m_capacity;     // !
-    first_.m_size = second_.m_size;             // | Iguala atributos
-    
-    second_.m_storage = tmp.m_storage;          // | Iguala referencias
-    second_.m_capacity = tmp.m_capacity;        // !
-    second_.m_size = tmp.m_size;                // | Iguala atributos
+void swap(vector<T>& first_, vector<T> & second_ ){
+    vector<T> tmp = std::move(first_);          // | Move o container first_ para o tmp
+    first_ = std::move(second_);                // | Move o container second_ para o first_
+    second_ = std::move(tmp);                   // | Move o container tmp para o second_
 }
 
 // [+] Non-member functions

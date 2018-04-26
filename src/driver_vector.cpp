@@ -55,24 +55,23 @@ int main(){
     std::cout << vect5 << std::endl;
 
     std::cout << "INSERT() 1 ";
-    vect5.insert(&vect5[0], 10);
+    vect5.insert(vect5.begin(), 10);
     std::cout << vect5 << std::endl;
 
     std::cout << "INSERT() 2 ";
 
     vector<int> vect5_suport {{1,2}};
-    vect5.insert(&vect5[0], vect5_suport.begin(), vect5_suport.end());
+    vect5.insert(vect5.begin(), vect5_suport.begin(), vect5_suport.end());
     std::cout << vect5 << std::endl;
 
     std::cout << "INSERT() 3 ";
-    auto S = {3,4};
-    vect5.insert(&vect5[0], {S});
-    std::cout << vect5 << std::endl;
+    vect5.insert(vect5.begin(), {3, 4});
+    // std::cout << vect5 << std::endl;
     
-    sc::vector<int> vect7{{1,2,3, 4, 5, 6}};
-    sc::vector<int> vect6(vect7.begin()+1, vect7.begin()+4);
-    std::cout << "construtor ranges()\n";
-    std::cout << vect6 << std::endl;
+    // sc::vector<int> vect7{{1,2,3, 4, 5, 6}};
+    // sc::vector<int> vect6(vect7.begin()+1, vect7.begin()+4);
+    // std::cout << "construtor ranges()\n";
+    // std::cout << vect6 << std::endl;
 
 //---------------------------------------------------------------
     std::cout << *vect << std::endl;
