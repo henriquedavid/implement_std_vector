@@ -41,9 +41,9 @@ sc::MyIterator<T> & MyIterator<T>::operator++( void ){
 
 template < typename T >
 sc::MyIterator<T> MyIterator<T>::operator++( int ){
-         auto temp(*this);
-         ++this->current;
-         return temp;
+    auto temp(*this);
+    ++this->current;
+    return temp;
 }
 
 template < typename T >
@@ -66,7 +66,7 @@ sc::MyIterator<T> MyIterator<T>::operator+( int value ){
 
 template < typename T >
 sc::MyIterator<T> MyIterator<T>::operator-( int value ){
-         return MyIterator<T>(this->current-value); // conversão explicita
+    return MyIterator<T>(this->current-value); // conversão explicita
 }
 
 template < typename T >
@@ -120,7 +120,7 @@ vector<T>::vector(const vector<T>& vtr)
     this->m_capacity = vtr.m_capacity;
     this->m_storage = new T[this->m_capacity];
     this->m_end = vtr.m_end;
-   
+    
     auto f(this->begin());
     int i = 0;
     while((f+i) != this->end()){
@@ -132,8 +132,8 @@ vector<T>::vector(const vector<T>& vtr)
 
 template < typename T >
 vector<T>::vector(vector<T>&& vtr){
-    this->capacity = vtr.capacity;
-    this->size = vtr.size;
+    this->m_capacity = vtr.m_capacity;
+    this->m_end = vtr.m_end;
     this->m_storage = std::move(vtr.m_storage);
 }
 
@@ -142,8 +142,8 @@ vector<T>::vector( const std::initializer_list<T> & rhf ){
     this->m_capacity = rhf.size()+1;
     this->m_storage = new T[m_capacity];
     std::copy( rhf.begin(), rhf.end(), &m_storage[0]);
-
-
+    
+    
     this->m_end = rhf.size();
 }
 
@@ -160,24 +160,24 @@ vector<T>::vector( InputItr first, InputItr last){
 }
 
 template < typename T >
-  vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
- 	size_type capacity = vtr.capacity();
- 	this->m_storage = new T[capacity];
- 	this->m_end = vtr.size();
- 	this->m_capacity = capacity;
-  
-     auto vtr_storage = vtr.begin();
-     
- 	for( auto i(0u); i < capacity; i++ ){
-         this->m_storage[i] = vtr_storage[i];
- 	}
- 	return *this;
+vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
+    size_type capacity = vtr.capacity();
+    this->m_storage = new T[capacity];
+    this->m_end = vtr.size();
+    this->m_capacity = capacity;
+    
+    auto vtr_storage = vtr.begin();
+    
+    for( auto i(0u); i < capacity; i++ ){
+        this->m_storage[i] = vtr_storage[i];
+    }
+    return *this;
 }
 
 template < typename T >
 vector<T> & vector<T>::operator=( vector<T> && vtr ){
-    this->capacity = vtr.capacity;
-    this->size = vtr.size;
+    this->m_capacity = vtr.m_capacity;
+    this->m_end = vtr.m_end;
     this->m_storage = std::move(vtr.m_storage);
     return *this;
 }
@@ -239,13 +239,13 @@ template < typename T >
 void vector<T>::push_front( vector<T>::const_reference value ){
     if(m_end == this->m_capacity)
         this->reserve( this->m_capacity * 2 );
-
+    
     for( auto i(this->m_end) ; i > 0 ; --i ){
         std::swap(*(this->m_storage+i-1), *(this->m_storage+i));
     }
     this->m_storage[0] = value;
     m_end++;
- 
+    
 }
 
 template < typename T >
@@ -275,7 +275,7 @@ template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference value_ ){
     if(m_end == this->m_capacity)
         this->reserve(this->m_capacity * 2);
-
+    
     *pos_ = value_;
     
     return pos_;
@@ -286,34 +286,34 @@ template < typename InputItr >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , InputItr first_ , InputItr last_ ){
     if(m_end == this->m_capacity)
         this->reserve(this->m_capacity * 2);
-
+    
     auto original_(pos_);
     int i = 0;
-
+    
     while(first_+i != last_){
         *(pos_+i) = *(first_+i);
         i++;
     }
-
+    
     return original_;
-
+    
 }
 
 template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_, std::initializer_list< T > ilist_ ){
-
+    
     if( ilist_.size() == 0 )
         return pos_;
-
+    
     if(m_end >= this->m_capacity)
         this->reserve(this->m_capacity * 2);
-
+    
     auto original_(pos_);
-
+    
     std::copy( ilist_.begin(), ilist_.end(), &(*pos_)); // sem conversao implicita de iterator para ponteiro
-
+    
     return original_;
-
+    
 }
 
 template < typename T >
@@ -355,11 +355,11 @@ void vector<T>::assign( vector<T>::size_type count_, vector<T>::const_reference 
 
 template < typename T >
 void vector<T>::assign( std::initializer_list<T> il ){
-        if(il.size() > this->m_capacity)
-            this->reserve(il.size() * 2);
-
-        std::copy( il.begin(), il.end(), &m_storage[0]);
-        m_end = il.size();
+    if(il.size() > this->m_capacity)
+        this->reserve(il.size() * 2);
+    
+    std::copy( il.begin(), il.end(), &m_storage[0]);
+    m_end = il.size();
 }
 template < typename T >
 template < typename InputItr >
@@ -370,18 +370,14 @@ void vector<T>::assign( InputItr first, InputItr last){
     
     for(auto i(0u); i < size; ++i)
         this->m_storage[i] = first[i];
-
+    
     this->m_size = size;
 }
 
-/*! 
- *\note if last iterator is after the container end, last will be set to the vector end and
- *the methode will return first argument. Erasing a element after last valid element is a no-op.
-*/
 template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator first, vector<T>::iterator last){
-    if(last > m_storage + m_end) // não posso remover elementos depois do end
-        last = this->m_storage + m_end;            // TODO: decidir como será resolvido e colocar com issue no README.md
+    if(last > m_storage + m_end)                    
+        last = this->m_storage + m_end;          
     auto old_first = first;
     auto aux = last; 
     auto p_m_end = this->m_storage + this->m_end;
@@ -389,17 +385,15 @@ typename vector<T>::iterator vector<T>::erase( vector<T>::iterator first, vector
         *(first++) = *(aux++);
     
     this->m_end -= last - first;
-    return old_first; // TODO: verificar se está correto
+    return old_first;
 }
 
-/*! 
- *\note Erasing a element after last valid element is a no-op.
-*/
+
 template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator pos){
-    if(pos >= m_storage + m_end) // não posso remover elementos no end ou depois
-        return MyIterator<T>(m_storage + m_end); // TODO: decidir o que fazer
-    auto old_pos = pos;
+    if(pos >= m_storage + m_end)
+        return MyIterator<T>(m_storage + m_end);
+        auto old_pos = pos;
     auto aux = pos+1;
     auto p_m_end = this->m_storage + this->m_end;
     while(aux < p_m_end)
@@ -481,7 +475,7 @@ template < typename T >
 bool vector<T>::operator!=( const vector & vtr) const{
     if( this->m_end == vtr.m_end && this->m_capacity == vtr.m_capacity ){
         for( auto i(0u) ; i < this->m_capacity ; i++ ){
-            if(*(this->m_storage+i) == *(vtr.m_storage+i))
+            if(*(this->m_storage+i) == *(vtr.m_storage+i)){
                 return false;
         }
         return true;
@@ -493,18 +487,29 @@ bool vector<T>::operator!=( const vector & vtr) const{
 
 // [VII] Friend functions.
 
+template < typename T >
+std::ostream & sc::operator<<( std::ostream& os_, const vector<T>& v_ ){
+    os_ << "Vetor = [ ";
+    for( auto i(0u); i < v_.m_end ; i++ ){
+        os_ << *(v_.m_storage+i) << " ";
+    }
+    os_ << "]";
+    
+    return os_;
+}
 
-/*template < typename T >
-void swap(vector<T>& first_, vector<T> & second_ ){
+template < typename T >
+void sc::swap(vector<T>& first_, vector<T>& second_ ){
     vector<T> tmp = std::move(first_);          // | Move o container first_ para o tmp
     first_ = std::move(second_);                // | Move o container second_ para o first_
     second_ = std::move(tmp);                   // | Move o container tmp para o second_
-}*/
+    tmp.m_storage = nullptr;                    // | Invalida o  storage do tmp, evitando que esse seja deletado
+}
 
 // [+] Non-member functions
 
 template < typename T >
-bool operator==( const vector<T>& lhs, const vector<T>& rhs ){
+bool operator==( vector<T>& lhs, vector<T>& rhs ){
     if( lhs.m_end == rhs.m_end && lhs.m_capacity == rhs.m_capacity ){
         for( auto i(0u) ; i < lhs.m_capacity ; i++ ){
             if(*(lhs.m_storage+i) != *(rhs.m_storage+i))

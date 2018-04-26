@@ -8,6 +8,7 @@ int main(){
     unique_ptr< sc::vector<int> > vect(new sc::vector<int>);
     
 #ifdef DEBUG
+    
     // DEBUG
     
     // inserção três Elementos ordenados
@@ -15,78 +16,81 @@ int main(){
     vect->push_back(1);
     vect->push_back(2);
     vect->push_back(3);
-
+    
     std::cout << *vect << std::endl;
-
+    
     // Teste de execução de criação de vetores por quantidade e por outro vetor.
     sc::vector<int> vect1(2);
     vect1.push_back(10);
     vect1.push_back(20);
     vect1.push_back(30);
-
+    
     std::cout << "Vetor1: ";
     std::cout << vect1 << std::endl;
-
+    
     sc::vector<int> vect2(vect1);
     std::cout << "Vetor2: ";
     std::cout << vect2 << std::endl;
-
+    
     // Teste de criação com lista
-
+    
     sc::vector<int> vect3 {{1, 2, 4, 6}};
     std::cout << vect3 << std::endl;
-
+    
     std::cout << "VECTOR 4 ";
     auto a(vect2.begin()+1);
     auto b(vect2.begin()+3);
     sc::vector<int> vect4(a,b );      //<- NÃO ESTÁ FUNCIONANDO
     std::cout << vect4 << std::endl;
-
+    
     // Testar assign
     sc::vector<int> vect5 {{1,2,3}};
-
+    
     std::cout << vect5 << std::endl;
     vect5.assign({4,5,6});
     std::cout << vect5 << std::endl;
-
+    
     vect5.push_front(5);
     std::cout << vect5 << std::endl;
-
+    
     std::cout << "POP_BACK() ";
     vect5.pop_back();
     std::cout << vect5 << std::endl;
-
+    
     std::cout << "POP_FRONT() ";
     vect5.pop_front();
     std::cout << vect5 << std::endl;
-
+    
     std::cout << "INSERT() 1 ";
     vect5.insert(vect5.begin(), 10);
     std::cout << vect5 << std::endl;
-
+    
     std::cout << "INSERT() 2 ";
-
+    
     vector<int> vect5_suport {{1,2}};
     vect5.insert(vect5.begin(), vect5_suport.begin(), vect5_suport.end());
     std::cout << vect5 << std::endl;
-
+    
     std::cout << "INSERT() 3 ";
     vect5.insert(vect5.begin(), {3, 4});
     std::cout << vect5 << std::endl;
-
-    std::cout << "SWAP() ";
-    sc::swap(vect2, vect5);
-    std::cout << "vect2 new : ";
-    std::cout << vect2;
-    std::cout << "vect5 new : ";
-    std::cout << vect5; 
     
+    std::cout << "SWAP() \n";     
+    sc::vector<char> vect7 {{1, 2, 4, 6}};
+    sc::swap(vect2, vect5);
+    std::cout << "vect2 old : " << vect2 << std::endl;
+    std::cout << "vect5 old : " << vect5 << std::endl;
+    
+    swap(vect5, vect2);
+    
+    std::cout << "vect2 new : " << vect2 << std::endl;
+    std::cout << "vect5 new : " << vect5 << std::endl;
     // sc::vector<int> vect7{{1,2,3, 4, 5, 6}};
     // sc::vector<int> vect6(vect7.begin()+1, vect7.begin()+4);
     // std::cout << "construtor ranges()\n";
     // std::cout << vect6 << std::endl;
-
-//---------------------------------------------------------------
+    
+    //---------------------------------------------------------------
     std::cout << *vect << std::endl;
     
     // teste do operator []
@@ -117,6 +121,8 @@ int main(){
     assert(vect->empty() && "Error: The empty function is not working. \n");
     assert(vect->size() == 0 && "Error: The size function is not working. \n");
     assert(vect->capacity() == 0 && "Error: The capacity function is not working. \n");
+    
 #endif
-	return 0;
+    
+    return 0;
 }
