@@ -15,49 +15,61 @@ namespace sc {
     std::ostream & operator<<(std::ostream & os_, const vector<T>& v_ );
     
     
+    /// Implementa a infraestrutura para suportar um ponteiro bidirecional.
     template < typename T>
     class MyIterator {
         
     public:
         
-        using value_type = T;           //!< The value_type.
+        /// Alias
+        /// Alias para o tipo de dado utilizado no programa.
+        using value_type = T;
+        /// Ponteiro para o valor do tipo.
         using pointer = value_type *;
+        /// Referência para o valor do tipo.
         using reference = value_type &;
+        /// Referência para o valor constante do tipo.
         using const_reference = const value_type &;  
+        /// Tipo de diferência para calcular a distância entre dois ponteiros.
         using difference_type = std::ptrdiff_t;
         
+        /// Construtor a partir de um ponteiro. 
         explicit MyIterator( pointer pt = nullptr );
         
+        /// Construtor a partir de uma referência a outra classe MyIterator<T>.
         MyIterator( const MyIterator<T> &);
         
+        /// Acessar o conteúdo o qual o ponteiro aponta.
         reference operator*( ) const;
         
+        /// Destrutor da classe.
         ~MyIterator();
         
-        /// Incrementar o vetor uma vez.
+        /// Operador de pré-incremento.
         MyIterator & operator++( );
-        // ++it;
         
-        /// Incrementar o vetor uma quantidade x de vezes.
+        /// Operador de pós-incremento.
         MyIterator operator++( int );
-        // it++;
         
-        /// Decrementar o vetor uma única vez.
+        /// Operador de pré-decremento.
         MyIterator & operator--( );
-        // --it;
         
-        /// Decrementar o vetor uma quantidade x de vezes.
+        /// Operador de pós-decremento.
         MyIterator operator--( int ); 
-        // it--
         
+        /// Operador de soma.
         MyIterator operator+( int );
         
+        /// Operador de subtração.
         MyIterator operator-( int );
         
+        /// Sobrecarga do operador ->.
         MyIterator * operator->( void ) const;
         
+        /// Operador de comparação se é <=.
         bool operator<=( const MyIterator<T> & rhs ) const;
         
+        /// Operador de comparação se é >=.
         bool operator>=( const MyIterator<T> & rhs ) const;
         
         /// Comparar dois iteradores se são iguais.
@@ -66,12 +78,14 @@ namespace sc {
         /// Comprar dois iteradores se são difentes.
         bool operator!=( const MyIterator<T> & rhs ) const;
         
+        /// Operador de atribuição.
         MyIterator & operator=( const MyIterator<T> & rhs );
         
+        // Operador de diferença entre ponteiros.
         difference_type operator-( const MyIterator & rhs ) const;
         
     private:
-        
+        /// O ponteiro.
         T *current;
         
     };
@@ -98,79 +112,108 @@ namespace sc {
         
         // [I] SPECIAL MEMBERS
         
-        /// Gera um vetor com a configuração padrão - tamanho 0.
-        
+        /// Gera um vetor com a configuração padrão - tamanho 0, caso o usuário não informe o valor.
         vector( size_type size = DEFAULT_SIZE );
+        /// Desconstrutor da classe vector.
         ~vector( );
+        /// Construtor a partir de um outro vector.
         vector(const vector&);
+        /// Construtor a partir de uma lista inicializadora.
         vector( const std::initializer_list<T> &);
+        /// Construtor de movimento de um outro vector.
         vector(vector&&);
+        /// Contrutor a partir de intervalos de vetores.
         template < typename InputItr >
         vector( InputItr, InputItr );          
         
+        /// Operador de atribuição.
         vector & operator=( const vector & );
+        /// Operador de movimento.
         vector & operator=( vector && );
         
-        // [II] ITERATORS
-        
+        /// Retorna um ponteiro para o inicio da lista.
         iterator begin(void);
+        /// Retorna um ponteiro para o final da lista.
         iterator end(void);
+        /// Retorna um ponteiro constante para o inicio da lista.
         const_iterator cbegin(void) const;
+        /// Retorna um ponteiro constante para o final da lista.
         const_iterator cend(void) const;
         
-        // [III] Capacity
-        
+        /// Retorna a quantidade de elementos na lista.        
         size_type size( void ) const;
+        /// Retorna a capacidade total da lista.
         size_type capacity( void ) const;
+        /// Verifica se a lista está vazia.
         bool empty( void ) const;
+        /// Verifica se a lista está cheia.
         bool full( void ) const;
         
-        // [IV] Modifiers
-        
+        /// Limpa a lista.        
         void clear( void );
+        /// Insere um elemento no início da lista.
         void push_front( const_reference );
+        /// Insere um elemento no final da lista.
         void push_back( const_reference );
+        /// Remove um elemento do final da lista.
         void pop_back( void );
+        /// Remove um elemento do início da lista.
         void pop_front( void );
+        /// Insere um elemento em um local específico da lista.
         iterator insert( iterator , const_reference );
+        /// Insere valores de uma lista a partir de uma posição na lista original.
         template < typename InputItr >
         iterator insert( iterator , InputItr , InputItr );
+        /// Insere valores a partir de uma lista inicializadora a partir de uma posição na lista original.
         iterator insert( iterator, std::initializer_list< T > );
+        /// Aumenta a capacidade da lista.
         void reserve( size_type );
+        /// Diminui a lista de forma que a capacidade fique igual ao tamanho.
         void shrink_to_fit( void );
+        /// Atribui um número específico de cópias de um valor na lista.
         void assign( size_type count_, const_reference value_);
+        /// Modifica os elementos da lista a partir de uma lista inicializadora.
         void assign( std::initializer_list<T> );
+        /// Modifica os elementos de uma lista a partir de um intervalo.
         template < typename InputItr >
         void assign( InputItr, InputItr );
         /*! 
-        * \note if last iterator is after the container end, last will be set to the vector end and
-        * the methode will return first argument. Erasing a element after last valid element is a no-op.
-        */
+         * Remove elementos específicos da lista. 
+         *
+         * \note se o último ponteiro é depois do container end, o último será configurado para o método end e 
+         * e o método retornará o primeiro argumento. Apagar um elemento depois do último elemento válido não é uma opção.
+         */
         iterator erase( iterator, iterator );
         /*! 
-        * \note Erasing a element after last valid element is a no-op.
-        */
+         * Remove um elemento específico da lista, o qual será o qual o ponteiro informado aponta.
+         *
+         * \note Apagar um elemento depois do último elemento válido não é uma opção..
+         */
         iterator erase( iterator );
         
-        // [V] Element access
-        
+        /// Acessa o último elemento da lista.
         const_reference back( void ) const;
+        /// Acessa o primeiro elemento da lista.
         const_reference front( void ) const;
+        /// Acessa um elemento específico da lista, retornando uma referência constante a posição informada.
         const_reference operator[]( size_type ) const;
+        /// Acessa um elemento específico da lista, retornando uma referência a posição informada.
         reference operator[]( size_type );
+        /// Acessa um elemento específico da lista verificando se ele está dentro do intervalo da lista, e retorna uma uma referência constante para o elemento.
         const_reference at( size_type ) const;
+        /// Acessa um elemento específico da lista verificando se ele está dentro do intervalo da lista, e retorna uma uma referência constante para o elemento.
         reference at( size_type );
         pointer data( void );
         const_reference data( void ) const;
         
         
-        // [VI] Operators
-        
+        /// Sobrecarga do operador de igualdade.      
         bool operator==( const vector & ) const;
+        /// Sobrecarga do operador de desigualdade.
         bool operator!=( const vector & ) const;
         
         
-        // [VII] Friend functions.
+
         friend std::ostream & operator<< <T>(std::ostream & os_, const vector& v_ );
         
         friend void swap<T>(vector& first_, vector& second_ );
@@ -181,9 +224,9 @@ namespace sc {
         
         private:
             
-            size_type m_end;	        //<! Current list size (or index past-last valid element>
-            size_type m_capacity;	    //<! List’s storage capacity.
-            T *m_storage;		        //<! Data storage area for the dynamic array.
+            size_type m_end;	        //<! Tamanho da lista (ou a quantidade até o último elemento válido).
+            size_type m_capacity;	    //<! A capacidade total da lista.
+            T *m_storage;		        //<! O armazenador de data para um array dinâmico.
             
     };
     
