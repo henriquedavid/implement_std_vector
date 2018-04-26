@@ -90,9 +90,8 @@ namespace sc {
             vector( size_type size = DEFAULT_SIZE );
             ~vector( );
             vector(const vector&);
-            vector(vector&&);
             vector( const std::initializer_list<T> &);
-            
+            vector(vector&&);
             template < typename InputItr >
             vector( InputItr, InputItr );          
 
@@ -120,12 +119,12 @@ namespace sc {
             void pop_back( void );
             void pop_front( void );
             iterator insert( iterator , const_reference );
-            //template < typename InputItr >
-            //iterator insert( iterator , InputItr , InputItr );
-            //iterator insert( iterator, std::initializer_list< value_type > );
+            template < typename InputItr >
+            iterator insert( iterator , InputItr , InputItr );
+            iterator insert( iterator, std::initializer_list< value_type > );
             void reserve( size_type );
             void shrink_to_fit( void );
-            void assign( const_reference );
+            void assign( size_type count_, const_reference value_);
             void assign( std::initializer_list<T> );
             template < typename InputItr >
             void assign( InputItr, InputItr );
@@ -172,6 +171,7 @@ namespace sc {
             size_type m_capacity;	    //<! List’s storage capacity.
             T *m_storage;		        //<! Data storage area for the dynamic array.
             
+            bool full( void ) const; 
       };
         
 }

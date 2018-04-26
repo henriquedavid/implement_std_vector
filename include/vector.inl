@@ -273,16 +273,53 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference 
     if(m_end == this->m_capacity)
         this->reserve(this->m_capacity * 2);
 
-    if(pos_ >= m_storage && pos_ <= m_storage+this->m_end){
+    if( pos_ >= this->m_storage && pos_ <= this->m_storage+m_end)
         *pos_ = value_;
-    }
+    
     return pos_;
 }
 
-// TODO: fazer essa
-//template < typename InputItr >
-//iterator insert( iterator , InputItr , InputItr );
-//iterator insert( iterator, std::initializer_list< value_type > );
+template < typename T >
+template < typename InputItr >
+typename vector<T>::iterator vector<T>::insert( iterator pos_ , InputItr first_ , InputItr last_ ){
+    if(m_end == this->m_capacity)
+        this->reserve(this->m_capacity * 2);
+
+    auto original_(pos_);
+    int i = 0;
+
+
+    if( pos_ >= this->m_storage && pos_ <= this->m_storage+m_end){
+        while(first_+i != last_){
+            *(pos_+i) = *(first_+i);
+            i++;
+        }
+    }
+
+    return original_;
+
+}
+
+template < typename T >
+typename vector<T>::iterator vector<T>::insert( iterator pos_, std::initializer_list< vector<T>::value_type > ilist_ ){
+
+    if( ilist_.size() == 0 )
+        return pos_;
+
+    if(m_end >= this->m_capacity)
+        this->reserve(this->m_capacity * 2);
+
+    auto original_(pos_);
+
+    if( pos_ >= this->m_storage && pos_ <= this->m_storage+m_end){
+        
+        std::copy( ilist_.begin(), ilist_.end(), pos_ );
+
+    }
+
+    return original_;
+
+}
 
 template < typename T >
 void vector<T>::reserve(vector<T>::size_type size)
@@ -312,10 +349,10 @@ void vector<T>::shrink_to_fit( void )
 }
 
 template < typename T >
-void vector<T>::assign( vector<T>::const_reference value )
+void vector<T>::assign( vector<T>::size_type count_, vector<T>::const_reference value )
 {
     auto first = m_storage;
-    auto last = m_storage + m_end;
+    auto last = m_storage + count_;
     
     while(first < last)
         *(first++) = value;
@@ -496,3 +533,11 @@ bool operator!=( const vector<T>& lhs, const vector<T>& rhs ){
     return true;
 }
 
+template < typename T >
+bool sc::vector<T>::full( void ) const{
+    if( this->m_size >= this->m_capacity ){
+        return true;
+    } else{
+        return false;
+    }
+}

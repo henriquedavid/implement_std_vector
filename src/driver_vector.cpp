@@ -54,8 +54,19 @@ int main(){
     vect5.pop_front();
     std::cout << vect5 << std::endl;
 
-    std::cout << "INSERT()";
+    std::cout << "INSERT() 1 ";
     vect5.insert(&vect5[0], 10);
+    std::cout << vect5 << std::endl;
+
+    std::cout << "INSERT() 2 ";
+
+    vector<int> vect5_suport {{1,2}};
+    vect5.insert(&vect5[0], vect5_suport.begin(), vect5_suport.end());
+    std::cout << vect5 << std::endl;
+
+    std::cout << "INSERT() 3 ";
+    auto S = {3,4};
+    vect5.insert(&vect5[0], {S});
     std::cout << vect5 << std::endl;
     
     sc::vector<int> vect7{{1,2,3, 4, 5, 6}};
