@@ -393,7 +393,7 @@ template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator pos){
     if(pos >= m_storage + m_end)
         return MyIterator<T>(m_storage + m_end);
-        auto old_pos = pos;
+    auto old_pos = pos;
     auto aux = pos+1;
     auto p_m_end = this->m_storage + this->m_end;
     while(aux < p_m_end)
@@ -482,6 +482,7 @@ bool vector<T>::operator!=( const vector & vtr) const{
     }
     
     return true;
+    }  
 }
 
 
