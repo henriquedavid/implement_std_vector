@@ -2,125 +2,178 @@
 #include <memory>
 #include <cassert>
 #include "vector.h"
+#include <vector>
 
 using namespace std;
-int main(){
-    unique_ptr< sc::vector<int> > vect(new sc::vector<int>);
+
+bool cmp(sc::vector<int>& va, std::vector<int>& vb){
+    auto size = va.size();
+    if(size != vb.size())
+        return false;
+    for(auto i(0u); i < size; i++){
+        if(va[i] != vb[i])
+            return false;
+    }
+    return true;
+}
+
+std::ostream & operator<<( std::ostream& os_, const std::vector<int>& v_ ){
+    os_ << "Vetor = [ ";
+    for( auto i(0u); i < v_.size(); i++ ){
+        os_ << v_[i] << " ";
+    }
+    os_ << "]";
     
+    return os_;
+}
+
+int main(){
 #ifdef DEBUG
     
     // DEBUG
     
-    // inserção três Elementos ordenados
+    unique_ptr< sc::vector<int> > av(new sc::vector<int>);
+    unique_ptr< sc::vector<int> > bv(new sc::vector<int>);
+    unique_ptr< std::vector<int> > a_v(new std::vector<int>);
+    unique_ptr< std::vector<int> > b_v(new std::vector<int>);
     
-    vect->push_back(1);
-    vect->push_back(2);
-    vect->push_back(3);
+    // inserção três Elementos ordenado
     
-    std::cout << *vect << std::endl;
+    av->push_back(3);
+    av->push_back(4);
+    a_v->push_back(3);
+    a_v->push_back(4);
     
-    // Teste de execução de criação de vetores por quantidade e por outro vetor.
-    sc::vector<int> vect1(2);
-    vect1.push_back(10);
-    vect1.push_back(20);
-    vect1.push_back(30);
+    assert(cmp(*av, *a_v) && "Error at push_back methode");
     
-    std::cout << "Vetor1: ";
-    std::cout << vect1 << std::endl;
+    av->push_front(2);
+    av->push_front(1);
+    a_v->insert(a_v->begin(), 2);
+    a_v->insert(a_v->begin(), 1);
     
-    sc::vector<int> vect2(vect1);
-    std::cout << "Vetor2: ";
-    std::cout << vect2 << std::endl;
+    assert(cmp(*av, *a_v) && "Error at push_front methode.");
     
-    // Teste de criação com lista
+    bv = unique_ptr < sc::vector<int> > ( new sc::vector<int> ( *av ) );
+    b_v = unique_ptr < std::vector<int> > ( new std::vector<int> ( *a_v ) );
     
-    sc::vector<int> vect3 {{1, 2, 4, 6}};
-    std::cout << vect3 << std::endl;
+    assert(cmp(*bv, *b_v) && "Error at copy construtor.");
     
-    std::cout << "VECTOR 4 ";
-    auto a(vect2.begin()+1);
-    auto b(vect2.begin()+3);
-    sc::vector<int> vect4(a,b );      //<- NÃO ESTÁ FUNCIONANDO
-    std::cout << vect4 << std::endl;
+    (*bv)[0] = 5;
+    (*b_v)[0] = 5; 
     
-    // Testar assign
-    sc::vector<int> vect5 {{1,2,3}};
+    assert(cmp(*bv, *b_v) && "Error at [] operator.");
     
-    std::cout << vect5 << std::endl;
-    vect5.assign({4,5,6});
-    std::cout << vect5 << std::endl;
+    assert(cmp(*av, *a_v) && "Error at copy construtor..");
     
-    vect5.push_front(5);
-    std::cout << vect5 << std::endl;
+    *av = std::move(*bv);
+    *a_v = std::move(*b_v);
     
-    std::cout << "POP_BACK() ";
-    vect5.pop_back();
-    std::cout << vect5 << std::endl;
+    assert(cmp(*av, *a_v) && cmp(*bv, *b_v) && "Error at move assignment.");
     
-    std::cout << "POP_FRONT() ";
-    vect5.pop_front();
-    std::cout << vect5 << std::endl;
+    bv = unique_ptr < sc::vector<int> >  ( new sc::vector<int> {6, 7, 8, 9, 10} );
+    b_v = unique_ptr < std::vector<int> >  ( new std::vector<int> {6, 7, 8, 9, 10} );
     
-    std::cout << "INSERT() 1 ";
-    vect5.insert(vect5.begin(), 10);
-    std::cout << vect5 << std::endl;
+    assert(cmp(*bv, *b_v) && "Error at initalizer list constructor.");
     
-    std::cout << "INSERT() 2 ";
+    av = unique_ptr < sc::vector<int> >  ( new sc::vector<int> (bv->begin()+1, bv->begin()+4) );
+    a_v = unique_ptr < std::vector<int> >  ( new std::vector<int> (b_v->begin()+1, b_v->begin()+4) );
     
-    vector<int> vect5_suport {{1,2}};
-    vect5.insert(vect5.begin(), vect5_suport.begin(), vect5_suport.end());
-    std::cout << vect5 << std::endl;
+    assert(cmp(*av, *a_v) && "Error at ranges constructor.");
     
-    std::cout << "INSERT() 3 ";
-    vect5.insert(vect5.begin(), {3, 4});
-    std::cout << vect5 << std::endl;
+    sc::swap(*av, *bv); // o std::swap nao chamará sc::swap. Ao invés disso usará o move-constructor e move-assignment.
+    std::swap(*a_v, *b_v);
     
-    std::cout << "SWAP() \n";     
-    sc::vector<char> vect7 {{1, 2, 4, 6}};
-    sc::swap(vect2, vect5);
-    std::cout << "vect2 old : " << vect2 << std::endl;
-    std::cout << "vect5 old : " << vect5 << std::endl;
+    assert(cmp(*av, *a_v) && cmp(*bv, *b_v) && "Error at swap methode.");
     
-    swap(vect5, vect2);
+    *av = *bv;
+    *a_v = *b_v;
     
-    std::cout << "vect2 new : " << vect2 << std::endl;
-    std::cout << "vect5 new : " << vect5 << std::endl;
-    // sc::vector<int> vect7{{1,2,3, 4, 5, 6}};
-    // sc::vector<int> vect6(vect7.begin()+1, vect7.begin()+4);
-    // std::cout << "construtor ranges()\n";
-    // std::cout << vect6 << std::endl;
+    assert(cmp(*av, *a_v) && cmp(*bv, *b_v) && "Error at copy assignment.");
     
-    //---------------------------------------------------------------
-    std::cout << *vect << std::endl;
+    av->pop_front();
+    a_v->erase(a_v->begin());
     
-    // teste do operator []
-    (*vect)[1] = 4;
-    assert((*vect)[1] == 4 && "Error: Acess operator [] at position 1 is not valid.\n");
+    assert(cmp(*av, *a_v) && "Error at pop_front function.");
     
-    // teste do at fora do intervalo
-    try {
-        vect->at(10) = 5;
-        assert(!"Error: The exception was not caught\n");
-    } catch(out_of_range e) {
-        
-    }
-    // teste do at dentro do intervalo
-    vect->at(1) = 2;
+    av->pop_back();
+    a_v->pop_back();
     
-    // teste de verificação dos valores esperados e dos metódos begin(), end() e operator *; 
-    int c = 1;
-    for(int & e : *vect)
-        assert(e == c++ && "Error: Elements in the array were unexpected.\n");
-    assert(c == 4 && "Error: Begin/end functions are not working. \n");
+    assert(cmp(*av, *a_v) && "Error at pop_back function.");
     
-    // teste do empty com Elementos
-    assert(!vect->empty() && "Error: The empty function is not working. \n");
+    // no começo
+    auto itc1 = av->insert(av->begin(), 11);
+    auto itd1 = a_v->insert(a_v->begin(), 11);
+    // apos o ultimo válido
+    auto itc2 = av->insert(av->end(), 12);
+    auto itd2 = a_v->insert(a_v->end(), 12);
+    // no ultimo válido
+    auto itc3 = av->insert(av->end()-1, 13);
+    auto itd3 = a_v->insert(a_v->end()-1, 13);
     
-    // teste do clear, empty, size e capacity sem elementos
-    vect->clear();
-    assert(vect->empty() && "Error: The empty function is not working. \n");
-    assert(vect->size() == 0 && "Error: The size function is not working. \n");
-    assert(vect->capacity() == 0 && "Error: The capacity function is not working. \n");
+    assert(cmp(*av, *a_v) && "Error at insert element function.");
+    assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert element function.");
+    // no começo
+    auto itc1 = av->insert(av->begin(), bv->begin(), bv->end());
+    auto itd1 = a_v->insert(a_v->begin(), b_v->begin(), b_v->end());
+    // antes e apos o last
+    auto itc2 = av->insert(av->end()-1, bv->begin(), bv->end());
+    auto itd2 = a_v->insert(a_v->end()-1, b_v->begin(), b_v->end());
+    // no last
+    auto itc3 = av->insert(av->end(), bv->begin(), bv->end());
+    auto itd3 = a_v->insert(a_v->end(), bv->begin(), bv->end());
+    
+    assert(cmp(*av, *a_v) && "Error at insert range function.");
+    assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert range function.");
+    // no começo
+    auto itc1 = av->insert(av->begin(), {14, 15, 16});
+    auto itd1 = a_v->insert(a_v->begin(), {14, 15, 16});
+    // antes e apos o last
+    auto itc2 = av->insert(av->end()-1, {17, 18, 19});
+    auto itd2 = a_v->insert(a_v->end()-1, {17, 18, 19});
+    // no last
+    auto itc3 = av->insert(av->end(), {20, 21, 22});
+    auto itd3 = a_v->insert(a_v->end(), {20, 21, 22});
+    
+    assert(cmp(*av, *a_v) && "Error at insert initalizer list function.");
+    assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert initalizer list function.");
+    
+    bv = unique_ptr < sc::vector<int> >  ( new sc::vector<int> {23, 24, 25, 26, 27, 28, 29, 30} );
+    b_v = unique_ptr < std::vector<int> >  ( new std::vector<int> {23, 24, 25, 26, 27, 28, 29, 30} );
+    *av = *bv; 
+    *a_v = *b_v;
+    
+    auto itc1 = bv->erase(bv->begin(), bv->begin()+3);
+    auto itd1 = b_v->erase(b_v->begin(), b_v->begin()+3);
+    
+    auto itc2 = bv->erase(bv->end()-2, bv->end());
+    auto itd2 = b_v->erase(b_v->end()-2, b_v->end());
+    
+    assert(cmp(*bv, *b_v) && "Error at range erase function.");
+    assert(*itc1 == *itd1 && *itc2 == *itd2 && "Error at return of range erase function.");
+    
+    *bv = *av; 
+    *b_v = *a_v;
+    
+    std::cout << "bv: " << *bv << std::endl;
+    std::cout << "b_v: " << *b_v << std::endl;
+    
+    itc1 = bv->erase(bv->begin()+2); 
+    itd1 = b_v->erase(b_v->begin()+2);
+    
+    assert(cmp(*bv, *b_v) && "Error at range erase function.");
+    assert(*itc1 == *itd1 && "Error at return of range erase function.");
+    
+    /*
+    void assign( size_type count_, const_reference value_);
+    void assign( size_type count_, const_reference value_);
+    /// Modifica os elementos da lista a partir de uma lista inicializadora.
+    void assign( std::initializer_list<T> );
+    /// Modifica os elementos de uma lista a partir de um intervalo.
+    template < typename InputItr >
+    void assign( InputItr, InputItr );*/
+    
+    
+   
     
 #endif
     

@@ -70,6 +70,12 @@ namespace sc {
         bool operator<=( const MyIterator<T> & rhs ) const;
         
         /// Operador de comparação se é >=.
+        bool operator>( const MyIterator<T> & rhs ) const;
+        
+        /// Operador de comparação se é <
+        bool operator<( const MyIterator<T> & rhs ) const;
+        
+        /// Operador de comparação se é >
         bool operator>=( const MyIterator<T> & rhs ) const;
         
         /// Comparar dois iteradores se são iguais.
@@ -108,7 +114,7 @@ namespace sc {
         
         // [--] PUBLIC ATTRIBUTES
         
-        const static size_type DEFAULT_SIZE = 0;                        //!< Size used for init and clear vector.
+        const static size_type DEFAULT_SIZE = 1;                        //!< Size used for init and clear vector.
         
         // [I] SPECIAL MEMBERS
         

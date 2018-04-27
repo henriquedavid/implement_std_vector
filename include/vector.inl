@@ -79,6 +79,15 @@ bool MyIterator<T>::operator>=( const MyIterator<T> & rhs ) const {
     return this->current >= rhs.current ;
 }
 
+template < typename T >
+bool MyIterator<T>::operator<( const MyIterator<T> & rhs ) const {
+    return this->current < rhs.current;
+}
+
+template < typename T >
+bool MyIterator<T>::operator>( const MyIterator<T> & rhs ) const {
+    return this->current > rhs.current ;
+}
 
 template < typename T >
 bool sc::MyIterator<T>::operator==( const MyIterator<T> & rhs ) const {
@@ -151,7 +160,6 @@ template<class T>
 template < typename InputItr >
 vector<T>::vector( InputItr first, InputItr last){
     this->m_capacity = last - first;
-    std::cout << last - first;
     this->m_storage = new T[this->m_capacity];
     this->m_end = this->m_capacity;
     for(auto i(0u); i < this->m_end; ++i){
@@ -161,16 +169,13 @@ vector<T>::vector( InputItr first, InputItr last){
 
 template < typename T >
 vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
-    size_type capacity = vtr.capacity();
-    this->m_storage = new T[capacity];
-    this->m_end = vtr.size();
-    this->m_capacity = capacity;
+    this->m_end = vtr.m_end;
+    this->m_capacity = vtr.m_capacity;
+    this->m_storage = new T[vtr.m_capacity];
     
-    auto vtr_storage = vtr.begin();
+    for( auto i(0u); i < vtr.m_end; i++ )
+        this->m_storage[i] = vtr.m_storage[i];
     
-    for( auto i(0u); i < capacity; i++ ){
-        this->m_storage[i] = vtr_storage[i];
-    }
     return *this;
 }
 
@@ -179,6 +184,11 @@ vector<T> & vector<T>::operator=( vector<T> && vtr ){
     this->m_capacity = vtr.m_capacity;
     this->m_end = vtr.m_end;
     this->m_storage = std::move(vtr.m_storage);
+    
+    vtr.m_storage = nullptr;
+    vtr.m_capacity = DEFAULT_SIZE;
+    vtr.m_end = 0;
+    
     return *this;
 }
 
@@ -232,7 +242,7 @@ void vector<T>::clear( void ){
     delete [] this->m_storage;
     this->m_storage = new T[DEFAULT_SIZE];
     this->m_capacity = DEFAULT_SIZE;
-    this->m_end = DEFAULT_SIZE;
+    this->m_end = 0;
 }
 
 template < typename T >
@@ -376,26 +386,28 @@ void vector<T>::assign( InputItr first, InputItr last){
 
 template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator first, vector<T>::iterator last){
-    if(last > m_storage + m_end)                    
-        last = this->m_storage + m_end;          
-    auto old_first = first;
-    auto aux = last; 
-    auto p_m_end = this->m_storage + this->m_end;
+    if(last > vector<T>::iterator ( this->m_storage + this->m_end ))                    
+        last = vector<T>::iterator ( this->m_storage + this->m_end );          
+    vector<T>::iterator old_first = first;
+    vector<T>::iterator aux = last; 
+    vector<T>::iterator p_m_end = vector<T>::iterator(this->m_storage + this->m_end);
     while(aux < p_m_end)
         *(first++) = *(aux++);
     
-    this->m_end -= last - first;
+    this->m_end -= last - old_first;
     return old_first;
 }
 
 
 template < typename T >
 typename vector<T>::iterator vector<T>::erase( vector<T>::iterator pos){
-    if(pos >= m_storage + m_end)
-        return MyIterator<T>(m_storage + m_end);
+    auto p_m_end = vector<T>::iterator ( this->m_storage + this->m_end );
+    if(pos >= vector<T>::iterator ( p_m_end ))
+        return vector<T>::iterator( p_m_end );
+    
     auto old_pos = pos;
     auto aux = pos+1;
-    auto p_m_end = this->m_storage + this->m_end;
+    
     while(aux < p_m_end)
         *(pos++) = *(aux++);
     this->m_end--;
