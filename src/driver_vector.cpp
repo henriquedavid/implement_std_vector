@@ -37,6 +37,12 @@ int main(){
     unique_ptr< std::vector<int> > a_v(new std::vector<int>);
     unique_ptr< std::vector<int> > b_v(new std::vector<int>);
     
+    sc::vector<int>::iterator itc1;
+    std::vector<int>::iterator itd1;
+    sc::vector<int>::iterator itc2;
+    std::vector<int>::iterator itd2;
+    sc::vector<int>::iterator itc3;
+    std::vector<int>::iterator itd3;
     // inserção três Elementos ordenado
     
     av->push_back(3);
@@ -101,38 +107,38 @@ int main(){
     assert(cmp(*av, *a_v) && "Error at pop_back function.");
     
     // no começo
-    auto itc1 = av->insert(av->begin(), 11);
-    auto itd1 = a_v->insert(a_v->begin(), 11);
+    itc1 = av->insert(av->begin(), 11);
+    itd1 = a_v->insert(a_v->begin(), 11);
     // apos o ultimo válido
-    auto itc2 = av->insert(av->end(), 12);
-    auto itd2 = a_v->insert(a_v->end(), 12);
+    itc2 = av->insert(av->end(), 12);
+    itd2 = a_v->insert(a_v->end(), 12);
     // no ultimo válido
-    auto itc3 = av->insert(av->end()-1, 13);
-    auto itd3 = a_v->insert(a_v->end()-1, 13);
+    itc3 = av->insert(av->end()-1, 13);
+    itd3 = a_v->insert(a_v->end()-1, 13);
     
     assert(cmp(*av, *a_v) && "Error at insert element function.");
     assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert element function.");
     // no começo
-    auto itc1 = av->insert(av->begin(), bv->begin(), bv->end());
-    auto itd1 = a_v->insert(a_v->begin(), b_v->begin(), b_v->end());
+    itc1 = av->insert(av->begin(), bv->begin(), bv->end());
+    itd1 = a_v->insert(a_v->begin(), b_v->begin(), b_v->end());
     // antes e apos o last
-    auto itc2 = av->insert(av->end()-1, bv->begin(), bv->end());
-    auto itd2 = a_v->insert(a_v->end()-1, b_v->begin(), b_v->end());
+    itc2 = av->insert(av->end()-1, bv->begin(), bv->end());
+    itd2 = a_v->insert(a_v->end()-1, b_v->begin(), b_v->end());
     // no last
-    auto itc3 = av->insert(av->end(), bv->begin(), bv->end());
-    auto itd3 = a_v->insert(a_v->end(), bv->begin(), bv->end());
+    itc3 = av->insert(av->end(), bv->begin(), bv->end());
+    itd3 = a_v->insert(a_v->end(), b_v->begin(), b_v->end());
     
     assert(cmp(*av, *a_v) && "Error at insert range function.");
     assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert range function.");
     // no começo
-    auto itc1 = av->insert(av->begin(), {14, 15, 16});
-    auto itd1 = a_v->insert(a_v->begin(), {14, 15, 16});
+    itc1 = av->insert(av->begin(), {14, 15, 16});
+    itd1 = a_v->insert(a_v->begin(), {14, 15, 16});
     // antes e apos o last
-    auto itc2 = av->insert(av->end()-1, {17, 18, 19});
-    auto itd2 = a_v->insert(a_v->end()-1, {17, 18, 19});
+    itc2 = av->insert(av->end()-1, {17, 18, 19});
+    itd2 = a_v->insert(a_v->end()-1, {17, 18, 19});
     // no last
-    auto itc3 = av->insert(av->end(), {20, 21, 22});
-    auto itd3 = a_v->insert(a_v->end(), {20, 21, 22});
+    itc3 = av->insert(av->end(), {20, 21, 22});
+    itd3 = a_v->insert(a_v->end(), {20, 21, 22});
     
     assert(cmp(*av, *a_v) && "Error at insert initalizer list function.");
     assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert initalizer list function.");
@@ -142,11 +148,11 @@ int main(){
     *av = *bv; 
     *a_v = *b_v;
     
-    auto itc1 = bv->erase(bv->begin(), bv->begin()+3);
-    auto itd1 = b_v->erase(b_v->begin(), b_v->begin()+3);
+    itc1 = bv->erase(bv->begin(), bv->begin()+3);
+    itd1 = b_v->erase(b_v->begin(), b_v->begin()+3);
     
-    auto itc2 = bv->erase(bv->end()-2, bv->end());
-    auto itd2 = b_v->erase(b_v->end()-2, b_v->end());
+    itc2 = bv->erase(bv->end()-2, bv->end());
+    itd2 = b_v->erase(b_v->end()-2, b_v->end());
     
     assert(cmp(*bv, *b_v) && "Error at range erase function.");
     assert(*itc1 == *itd1 && *itc2 == *itd2 && "Error at return of range erase function.");
