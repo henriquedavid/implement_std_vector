@@ -293,12 +293,11 @@ void vector<T>::pop_front( void ){
 template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference value_ ){
     //m_end++;
-    m_end = m_end + 1;
     iterator i (m_storage);
     int pos_posicao = pos_-i;
 
-    if(m_end >= this->m_capacity)
-        this->reserve(this->m_capacity * 2);
+    if(m_end+1 >= this->m_capacity)
+        this->reserve((this->m_capacity) * 2);
 
     iterator new_i (m_storage);
 
@@ -307,11 +306,13 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference 
     pos_ = new_i+pos_posicao;
 
     while( last_  >= pos_ ){
-        *(last_+1) = *(last_);
+        T temp = *(last_);
+        *(last_+1) = temp;
         --last_;
     }
     
     *pos_ = value_;   
+    m_end = m_end + 1;
 
 
     return iterator(pos_);
@@ -329,7 +330,7 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , InputItr first_ 
     int apartir( pos_ - a );
     int ate(apartir + qnt_new);
 
-    if(m_end >= this->m_capacity)
+    if(m_end+qnt_new >= this->m_capacity)
         this->reserve(this->m_capacity * 2);
 
     iterator a_n (m_storage);

@@ -142,6 +142,7 @@ int main(){
 
     assert(cmp(*av, *a_v) && "Error at insert range function.");
     //assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert range function.");
+    
     // no começo
     itc1 = av->insert(av->begin(), {14, 15, 16});
     itd1 = a_v->insert(a_v->begin(), {14, 15, 16});
@@ -155,7 +156,6 @@ int main(){
     assert(cmp(*av, *a_v) && "Error at insert initalizer list function.");
     //assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert initalizer list function.");
    
-
 
     unique_ptr < sc::vector<int> > bv1 ( new sc::vector<int> {23, 24, 25, 26, 27, 28, 29, 30} );
     unique_ptr < std::vector<int> > b_v1 ( new std::vector<int> {23, 24, 25, 26, 27, 28, 29, 30} );
