@@ -283,46 +283,89 @@ void vector<T>::pop_front( void ){
 
 template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference value_ ){
-    if(m_end == this->m_capacity)
-        this->reserve(this->m_capacity * 2);
     
-    *pos_ = value_;
+    iterator i (m_storage);
+    auto last_ = i + m_end+1;
+
+    while( last_  >= pos_ ){
+        *(last_+1) = *(last_);
+        --last_;
+    }
     
+    *pos_ = value_;   
+
+    ++m_end;
+
     return pos_;
 }
 
 template < typename T >
 template < typename InputItr >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , InputItr first_ , InputItr last_ ){
-    if(m_end == this->m_capacity)
+    
+    iterator armazenamento(m_storage);
+    auto local(pos_ - armazenamento);
+
+    auto apartir(first_ - armazenamento);
+    auto ate(last_ - armazenamento);
+
+    int quantidade = last_ - first_;
+
+
+    if(m_end >= this->m_capacity)
         this->reserve(this->m_capacity * 2);
-    
-    auto original_(pos_);
+
+    auto new_armazenamento(m_storage);
+    auto new_local( new_armazenamento + local );
+    auto new_apartir( new_armazenamento + apartir );
+    auto new_ate( new_armazenamento + ate );
+    auto last( new_armazenamento + m_end );
+    auto new_last( new_armazenamento + m_end + quantidade );
+
     int i = 0;
-    
-    while(first_+i != last_){
-        *(pos_+i) = *(first_+i);
+    while( new_last != last ){
+        *(new_last) == *(last-i);
+        new_last--;
         i++;
+
     }
-    
-    return original_;
+
+    std::copy( first_, last_, &(*(new_apartir)));
+    m_end += quantidade;
+
+    return pos_;
     
 }
 
 template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_, std::initializer_list< T > ilist_ ){
-    
+
     if( ilist_.size() == 0 )
         return pos_;
-    
+
+    iterator a (m_storage);
+    int apartir( pos_ - a );
+    int dif = ilist_.end() - ilist_.begin();
+    int ate(apartir + dif);
+
     if(m_end >= this->m_capacity)
         this->reserve(this->m_capacity * 2);
+
+    iterator a_n (m_storage);
+
+    int endtotal = m_end+dif;
+    auto las(a_n+endtotal);
+
+    while(las >= (a_n+ate)){
+        *(las) = *(las-dif);
+        las--;
+    }
     
-    auto original_(pos_);
+    m_end += dif;
     
-    std::copy( ilist_.begin(), ilist_.end(), &(*pos_)); // sem conversao implicita de iterator para ponteiro
+    std::copy( ilist_.begin(), ilist_.end(), &(*(a_n+apartir))); // sem conversao implicita de iterator para ponteiro
     
-    return original_;
+    return a_n+apartir;
     
 }
 
