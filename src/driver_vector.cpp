@@ -180,8 +180,8 @@ int main(){
     std::cout << *b_v << std::endl;
 
     unsigned x = 2;
-    //bv->assign( 5, x );
-    //b_v->assign( 5, x );
+    bv->assign( 5, x );
+    b_v->assign( 5, x );
 
     std::cout << *bv << std::endl;
     std::cout << *b_v << std::endl;
