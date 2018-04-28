@@ -311,6 +311,15 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , InputItr first_ 
 
     int quantidade = last_ - first_;
 
+    sc::vector<T> suport(quantidade);
+    auto f(first_);
+    auto l(last_);
+    int i = 0;
+
+    while(f+i != l){
+        suport[i] == *(f+i);
+        i++;
+    }
 
     if(m_end >= this->m_capacity)
         this->reserve(this->m_capacity * 2);
