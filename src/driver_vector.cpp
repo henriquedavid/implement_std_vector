@@ -124,8 +124,8 @@ int main(){
     std::cout << *av << "\n";
     std::cout << *a_v << "\n";
     assert(cmp(*av, *a_v) && "Error at insert element function.");
+      
     
-    /*
     //assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert element function.");
 
     // no começo
@@ -205,7 +205,7 @@ int main(){
     b_v->assign( a_v->begin(), a_v->end() );
 
     assert(cmp(*bv, *b_v) && "Error at assign in a range.");
-    */
+    
     
 #endif
     

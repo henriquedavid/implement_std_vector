@@ -292,7 +292,8 @@ void vector<T>::pop_front( void ){
 
 template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference value_ ){
-
+    //m_end++;
+    m_end = m_end + 1;
     iterator i (m_storage);
     int pos_posicao = pos_-i;
 
@@ -301,7 +302,7 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference 
 
     iterator new_i (m_storage);
 
-    auto last_ = i + m_end+1;
+    auto last_ = new_i + m_end;
 
     pos_ = new_i+pos_posicao;
 
@@ -312,7 +313,6 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference 
     
     *pos_ = value_;   
 
-    ++m_end;
 
     return iterator(pos_);
 }
