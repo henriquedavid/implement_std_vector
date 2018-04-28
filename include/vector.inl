@@ -292,19 +292,29 @@ void vector<T>::pop_front( void ){
 
 template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference value_ ){
-    if(this->m_end == this->m_capacity)
-        this->reserve( this->m_capacity * 2);
-    
-    auto last = iterator (this->m_storage + this->m_end);
-    
-    while(last > pos_){
-        std::swap(*last, *(last-1));
-        --last;
+
+    iterator i (m_storage);
+    int pos_posicao = pos_-i;
+
+    if(m_end >= this->m_capacity)
+        this->reserve(this->m_capacity * 2);
+
+    iterator new_i (m_storage);
+
+    auto last_ = i + m_end+1;
+
+    pos_ = new_i+pos_posicao;
+
+    while( last_  >= pos_ ){
+        *(last_+1) = *(last_);
+        --last_;
     }
     
-    *pos_ = value_;
-    this->m_end++;
-    return pos_;
+    *pos_ = value_;   
+
+    ++m_end;
+
+    return iterator(pos_);
 }
 
 template < typename T >

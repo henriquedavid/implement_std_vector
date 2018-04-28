@@ -105,17 +105,26 @@ int main(){
     a_v->pop_back();
     
     assert(cmp(*av, *a_v) && "Error at pop_back function.");
-    // no começo
+//     no começo
+    std::cout << *av << "\n";
+    std::cout << *a_v << "\n";
     itc1 = av->insert(av->begin(), 11);
     itd1 = a_v->insert(a_v->begin(), 11);
-    // apos o ultimo válido
+    std::cout << *av << "\n";
+    std::cout << *a_v << "\n";
+//     apos o ultimo válido
     itc2 = av->insert(av->end(), 12);
     itd2 = a_v->insert(a_v->end(), 12);
+    std::cout << *av << "\n";
+    std::cout << *a_v << "\n";
     
-    // no ultimo válido
+//     no ultimo válido
     itc3 = av->insert(av->end()-1, 13);
     itd3 = a_v->insert(a_v->end()-1, 13);
+    std::cout << *av << "\n";
+    std::cout << *a_v << "\n";
     assert(cmp(*av, *a_v) && "Error at insert element function.");
+    
     /*
     //assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert element function.");
 
