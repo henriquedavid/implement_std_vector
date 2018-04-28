@@ -179,10 +179,9 @@ int main(){
     std::cout << *bv << std::endl;
     std::cout << *b_v << std::endl;
 
-    int x = 2;
-
-    bv->assign( 5, x );
-    b_v->assign( 5, x );
+    unsigned x = 2;
+    //bv->assign( 5, x );
+    //b_v->assign( 5, x );
 
     std::cout << *bv << std::endl;
     std::cout << *b_v << std::endl;

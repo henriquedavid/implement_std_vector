@@ -419,7 +419,7 @@ template < typename T >
 void vector<T>::assign( vector<T>::size_type count_, vector<T>::const_reference value_ )
 {
     vector<T> vect(count_);
-    for(auto i(0); i < count_; ++i)
+    for(auto i(0u); i < count_; ++i)
         vect.insert(value_);
     
     delete [] this->m_storage;
