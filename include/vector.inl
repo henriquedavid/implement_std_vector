@@ -294,13 +294,15 @@ template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference value_ ){
     if(this->m_end == this->m_capacity)
         this->reserve( this->m_capacity * 2);
-    *pos_ = 4;
+    
     auto last = iterator (this->m_storage + this->m_end);
     
-    while(last > pos_)
-        std::swap(last, --last);
+    while(last > pos_){
+        std::swap(*last, *(last-1));
+        --last;
+    }
     
-    
+    *pos_ = value_;
     this->m_end++;
     return pos_;
 }
