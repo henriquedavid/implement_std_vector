@@ -143,10 +143,8 @@ template < typename T >
 vector<T>::vector(vector<T>&& vtr){
     this->m_capacity = vtr.m_capacity;
     this->m_end = vtr.m_end;
-    
-    delete [] this->m_storage;
-    
     this->m_storage = std::move(vtr.m_storage);
+    
     vtr.m_storage = new T[DEFAULT_SIZE];
     vtr.m_capacity = DEFAULT_SIZE;
     vtr.m_end = 0;
@@ -579,10 +577,9 @@ std::ostream & sc::operator<<( std::ostream& os_, const vector<T>& v_ ){
 
 template < typename T >
 void sc::swap(vector<T>& first_, vector<T>& second_ ){
-    vector<T> tmp = std::move(first_);          // | Move o container first_ para o tmp
+    vector<T> tmp(std::move(first_));           // | Move o container first_ para o tmp
     first_ = std::move(second_);                // | Move o container second_ para o first_
     second_ = std::move(tmp);                   // | Move o container tmp para o second_
-    tmp.m_storage = nullptr;                    // | Invalida o  storage do tmp, evitando que esse seja deletado
 }
 
 // [+] Non-member functions

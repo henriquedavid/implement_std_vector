@@ -198,6 +198,7 @@ int main(){
 
     assert(cmp(*bv, *b_v) && "Error at assign in a range.");
     
+    
 #endif
     
     return 0;
