@@ -175,6 +175,8 @@ template < typename T >
 vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
     this->m_end = vtr.m_end;
     this->m_capacity = vtr.m_capacity;
+    
+    delete [] this->m_storage;
     this->m_storage = new T[vtr.m_capacity];
     
     for( auto i(0u); i < vtr.m_end; i++ )
@@ -254,7 +256,7 @@ void vector<T>::clear( void ){
 
 template < typename T >
 void vector<T>::push_front( vector<T>::const_reference value ){
-    if(m_end == this->m_capacity)
+    if(this->m_end == this->m_capacity)
         this->reserve( this->m_capacity * 2 );
     
     for( auto i(this->m_end) ; i > 0 ; --i ){
@@ -267,7 +269,7 @@ void vector<T>::push_front( vector<T>::const_reference value ){
 
 template < typename T >
 void vector<T>::push_back( vector<T>::const_reference value ){
-    if(m_end == this->m_capacity)
+    if(this->m_end == this->m_capacity)
         this->reserve(this->m_capacity * 2);
     this->m_storage[this->m_end++] = value;
 }
@@ -283,36 +285,24 @@ template < typename T >
 void vector<T>::pop_front( void ){
     if(this->empty())
         return;
-    for( auto i(0u) ; i < m_end ; ++i )
-        std::swap(*(this->m_storage+i), *(this->m_storage+i+1));
+    for( auto i(0u) ; i < this->m_end-1; ++i )
+        std::swap(this->m_storage[i], this->m_storage[i+1]);
     --this->m_end;
 }
 
 template < typename T >
 typename vector<T>::iterator vector<T>::insert( iterator pos_ , const_reference value_ ){
-
-    iterator i (m_storage);
-    int pos_posicao = pos_-i;
-
-    if(m_end >= this->m_capacity)
-        this->reserve(this->m_capacity * 2);
-
-    iterator new_i (m_storage);
-
-    auto last_ = i + m_end+1;
-
-    pos_ = new_i+pos_posicao;
-
-    while( last_  >= pos_ ){
-        *(last_+1) = *(last_);
-        --last_;
-    }
+    if(this->m_end == this->m_capacity)
+        this->reserve( this->m_capacity * 2);
+    *pos_ = 4;
+    auto last = iterator (this->m_storage + this->m_end);
     
-    *pos_ = value_;   
-
-    ++m_end;
-
-    return iterator(pos_);
+    while(last > pos_)
+        std::swap(last, --last);
+    
+    
+    this->m_end++;
+    return pos_;
 }
 
 template < typename T >
