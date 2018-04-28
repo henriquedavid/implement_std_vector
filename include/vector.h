@@ -96,7 +96,7 @@ namespace sc {
         
     };
     
-    
+    /// A classe vector implementa a lista TAD com array dinâmico (conhecido como vector).
     template<typename T>
     class vector {
         

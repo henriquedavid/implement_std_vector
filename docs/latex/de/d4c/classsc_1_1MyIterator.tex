@@ -53,8 +53,12 @@ using \hyperlink{classsc_1_1MyIterator_ab37e30d9d7abaca8b7ed9c4ba7371798}{differ
 \begin{DoxyCompactList}\small\item\em Sobrecarga do operador -\/$>$. \end{DoxyCompactList}\item 
 bool \hyperlink{classsc_1_1MyIterator_ad8c2b40a518b2f112784f8fb2fe3e8fe}{operator$<$=} (const \hyperlink{classsc_1_1MyIterator}{My\+Iterator}$<$ T $>$ \&rhs) const
 \begin{DoxyCompactList}\small\item\em Operador de comparação se é $<$=. \end{DoxyCompactList}\item 
-bool \hyperlink{classsc_1_1MyIterator_ae8dbcb46b7277bc105903ae149670600}{operator$>$=} (const \hyperlink{classsc_1_1MyIterator}{My\+Iterator}$<$ T $>$ \&rhs) const
+bool \hyperlink{classsc_1_1MyIterator_ab8ca63fa245d05aebc771422c7861dc7}{operator$>$} (const \hyperlink{classsc_1_1MyIterator}{My\+Iterator}$<$ T $>$ \&rhs) const
 \begin{DoxyCompactList}\small\item\em Operador de comparação se é $>$=. \end{DoxyCompactList}\item 
+bool \hyperlink{classsc_1_1MyIterator_a9ae3587ee793ad0049a1c9b8d0780ba6}{operator$<$} (const \hyperlink{classsc_1_1MyIterator}{My\+Iterator}$<$ T $>$ \&rhs) const
+\begin{DoxyCompactList}\small\item\em Operador de comparação se é $<$. \end{DoxyCompactList}\item 
+bool \hyperlink{classsc_1_1MyIterator_ae8dbcb46b7277bc105903ae149670600}{operator$>$=} (const \hyperlink{classsc_1_1MyIterator}{My\+Iterator}$<$ T $>$ \&rhs) const
+\begin{DoxyCompactList}\small\item\em Operador de comparação se é $>$ \end{DoxyCompactList}\item 
 bool \hyperlink{classsc_1_1MyIterator_afde62290f677ab0c46f739008e7ed111}{operator==} (const \hyperlink{classsc_1_1MyIterator}{My\+Iterator}$<$ T $>$ \&rhs) const
 \begin{DoxyCompactList}\small\item\em Comparar dois iteradores se são iguais. \end{DoxyCompactList}\item 
 bool \hyperlink{classsc_1_1MyIterator_a6a64ad5515a5111089f73871a140e48c}{operator!=} (const \hyperlink{classsc_1_1MyIterator}{My\+Iterator}$<$ T $>$ \&rhs) const
@@ -273,6 +277,17 @@ Operador de pós-\/decremento.
 
 Sobrecarga do operador -\/$>$. 
 
+\mbox{\Hypertarget{classsc_1_1MyIterator_a9ae3587ee793ad0049a1c9b8d0780ba6}\label{classsc_1_1MyIterator_a9ae3587ee793ad0049a1c9b8d0780ba6}} 
+\index{sc\+::\+My\+Iterator@{sc\+::\+My\+Iterator}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!sc\+::\+My\+Iterator@{sc\+::\+My\+Iterator}}
+\subsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily template$<$typename T$>$ \\
+bool My\+Iterator\+::operator$<$ (\begin{DoxyParamCaption}\item[{const \hyperlink{classsc_1_1MyIterator}{My\+Iterator}$<$ T $>$ \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+Operador de comparação se é $<$. 
+
 \mbox{\Hypertarget{classsc_1_1MyIterator_ad8c2b40a518b2f112784f8fb2fe3e8fe}\label{classsc_1_1MyIterator_ad8c2b40a518b2f112784f8fb2fe3e8fe}} 
 \index{sc\+::\+My\+Iterator@{sc\+::\+My\+Iterator}!operator$<$=@{operator$<$=}}
 \index{operator$<$=@{operator$<$=}!sc\+::\+My\+Iterator@{sc\+::\+My\+Iterator}}
@@ -306,6 +321,17 @@ bool \hyperlink{classsc_1_1MyIterator}{sc\+::\+My\+Iterator}$<$ T $>$\+::operato
 
 Comparar dois iteradores se são iguais. 
 
+\mbox{\Hypertarget{classsc_1_1MyIterator_ab8ca63fa245d05aebc771422c7861dc7}\label{classsc_1_1MyIterator_ab8ca63fa245d05aebc771422c7861dc7}} 
+\index{sc\+::\+My\+Iterator@{sc\+::\+My\+Iterator}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!sc\+::\+My\+Iterator@{sc\+::\+My\+Iterator}}
+\subsubsection{\texorpdfstring{operator$>$()}{operator>()}}
+{\footnotesize\ttfamily template$<$typename T$>$ \\
+bool My\+Iterator\+::operator$>$ (\begin{DoxyParamCaption}\item[{const \hyperlink{classsc_1_1MyIterator}{My\+Iterator}$<$ T $>$ \&}]{rhs }\end{DoxyParamCaption}) const}
+
+
+
+Operador de comparação se é $>$=. 
+
 \mbox{\Hypertarget{classsc_1_1MyIterator_ae8dbcb46b7277bc105903ae149670600}\label{classsc_1_1MyIterator_ae8dbcb46b7277bc105903ae149670600}} 
 \index{sc\+::\+My\+Iterator@{sc\+::\+My\+Iterator}!operator$>$=@{operator$>$=}}
 \index{operator$>$=@{operator$>$=}!sc\+::\+My\+Iterator@{sc\+::\+My\+Iterator}}
@@ -315,7 +341,7 @@ bool My\+Iterator\+::operator$>$= (\begin{DoxyParamCaption}\item[{const \hyperli
 
 
 
-Operador de comparação se é $>$=. 
+Operador de comparação se é $>$ 
 
 
 

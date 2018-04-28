@@ -10,11 +10,11 @@ Este grafo mostra quais são os ficheiros que incluem directamente ou indirectam
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{classsc_1_1vector}{sc\+::vector$<$ T $>$}
-\item 
+\begin{DoxyCompactList}\small\item\em A classe vector implementa a lista T\+AD com array dinâmico (conhecido como vector). \end{DoxyCompactList}\item 
 class \hyperlink{classsc_1_1MyIterator}{sc\+::\+My\+Iterator$<$ T $>$}
 \begin{DoxyCompactList}\small\item\em Implementa a infraestrutura para suportar um ponteiro bidirecional. \end{DoxyCompactList}\item 
 class \hyperlink{classsc_1_1vector}{sc\+::vector$<$ T $>$}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A classe vector implementa a lista T\+AD com array dinâmico (conhecido como vector). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 

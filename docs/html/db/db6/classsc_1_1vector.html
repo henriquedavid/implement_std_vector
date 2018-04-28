@@ -75,6 +75,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>A classe vector implementa a lista TAD com array dinâmico (conhecido como vector).  
+ <a href="../../db/db6/classsc_1_1vector.html#details">Mais...</a></p>
+
 <p><code>#include &lt;<a class="el" href="../../d6/d68/vector_8h_source.html">vector.h</a>&gt;</code></p>
 <div class="dynheader">
 Diagrama de colaboração para sc::vector&lt; T &gt;:</div>
@@ -231,13 +234,13 @@ Membros públicos</h2></td></tr>
 <tr class="memitem:a9cf88e668b52a2a00961378d60812064"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/db6/classsc_1_1vector.html#a9cf88e668b52a2a00961378d60812064">operator!=</a> (const <a class="el" href="../../db/db6/classsc_1_1vector.html">vector</a> &amp;) const</td></tr>
 <tr class="memdesc:a9cf88e668b52a2a00961378d60812064"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sobrecarga do operador de desigualdade.  <a href="#a9cf88e668b52a2a00961378d60812064">Mais...</a><br /></td></tr>
 <tr class="separator:a9cf88e668b52a2a00961378d60812064"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67d141f57f019a2ad15fa39b90369910"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
-<tr class="memitem:a67d141f57f019a2ad15fa39b90369910"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/db6/classsc_1_1vector.html#a67d141f57f019a2ad15fa39b90369910">assign</a> (<a class="el" href="../../db/db6/classsc_1_1vector.html">vector</a>&lt; T &gt;::<a class="el" href="../../db/db6/classsc_1_1vector.html#a48bf37ba1a6d0c13504414d86e27c399">size_type</a> count_, <a class="el" href="../../db/db6/classsc_1_1vector.html">vector</a>&lt; T &gt;::<a class="el" href="../../db/db6/classsc_1_1vector.html#a8da2b1a11b069241100f9b2e14f481a0">const_reference</a> value)</td></tr>
-<tr class="separator:a67d141f57f019a2ad15fa39b90369910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70d7074754cd062c66a968f5d3b5ad2a"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
+<tr class="memitem:a70d7074754cd062c66a968f5d3b5ad2a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/db6/classsc_1_1vector.html#a70d7074754cd062c66a968f5d3b5ad2a">assign</a> (<a class="el" href="../../db/db6/classsc_1_1vector.html">vector</a>&lt; T &gt;::<a class="el" href="../../db/db6/classsc_1_1vector.html#a48bf37ba1a6d0c13504414d86e27c399">size_type</a> count_, <a class="el" href="../../db/db6/classsc_1_1vector.html">vector</a>&lt; T &gt;::<a class="el" href="../../db/db6/classsc_1_1vector.html#a8da2b1a11b069241100f9b2e14f481a0">const_reference</a> value_)</td></tr>
+<tr class="separator:a70d7074754cd062c66a968f5d3b5ad2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Atributos Públicos Estáticos</h2></td></tr>
-<tr class="memitem:a287b97d30cd9f7540da7d5ef628e49a7"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../db/db6/classsc_1_1vector.html#a48bf37ba1a6d0c13504414d86e27c399">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/db6/classsc_1_1vector.html#a287b97d30cd9f7540da7d5ef628e49a7">DEFAULT_SIZE</a> = 0</td></tr>
+<tr class="memitem:a287b97d30cd9f7540da7d5ef628e49a7"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../db/db6/classsc_1_1vector.html#a48bf37ba1a6d0c13504414d86e27c399">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/db6/classsc_1_1vector.html#a287b97d30cd9f7540da7d5ef628e49a7">DEFAULT_SIZE</a> = 1</td></tr>
 <tr class="memdesc:a287b97d30cd9f7540da7d5ef628e49a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size used for init and clear vector.  <a href="#a287b97d30cd9f7540da7d5ef628e49a7">Mais...</a><br /></td></tr>
 <tr class="separator:a287b97d30cd9f7540da7d5ef628e49a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -257,7 +260,12 @@ Amigos</h2></td></tr>
 <tr class="memitem:a9198beeb05f24ba2eadccab0a606063c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/db6/classsc_1_1vector.html#a9198beeb05f24ba2eadccab0a606063c">swap</a> (<a class="el" href="../../db/db6/classsc_1_1vector.html">vector</a> &amp;first_, <a class="el" href="../../db/db6/classsc_1_1vector.html">vector</a> &amp;second_)</td></tr>
 <tr class="separator:a9198beeb05f24ba2eadccab0a606063c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Documentação das definições de tipo</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Descrição detalhada</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class sc::vector&lt; T &gt;</h3>
+
+<p>A classe vector implementa a lista TAD com array dinâmico (conhecido como vector). </p>
+</div><h2 class="groupheader">Documentação das definições de tipo</h2>
 <a id="a1e50aa429ea9de6ead4bfdb8614c1c9a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e50aa429ea9de6ead4bfdb8614c1c9a">&#9670;&nbsp;</a></span>const_iterator</h2>
 
@@ -617,8 +625,8 @@ template&lt;typename InputItr &gt; </div>
 
 </div>
 </div>
-<a id="a67d141f57f019a2ad15fa39b90369910"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67d141f57f019a2ad15fa39b90369910">&#9670;&nbsp;</a></span>assign() <span class="overload">[4/4]</span></h2>
+<a id="a70d7074754cd062c66a968f5d3b5ad2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70d7074754cd062c66a968f5d3b5ad2a">&#9670;&nbsp;</a></span>assign() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -637,7 +645,7 @@ template&lt;typename T&gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="../../db/db6/classsc_1_1vector.html">vector</a>&lt; T &gt;::<a class="el" href="../../db/db6/classsc_1_1vector.html#a8da2b1a11b069241100f9b2e14f481a0">const_reference</a>&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
+          <td class="paramname"><em>value_</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1487,7 +1495,7 @@ template&lt;typename T&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="../../db/db6/classsc_1_1vector.html#a48bf37ba1a6d0c13504414d86e27c399">size_type</a> <a class="el" href="../../db/db6/classsc_1_1vector.html">sc::vector</a>&lt; T &gt;::DEFAULT_SIZE = 0</td>
+          <td class="memname">const <a class="el" href="../../db/db6/classsc_1_1vector.html#a48bf37ba1a6d0c13504414d86e27c399">size_type</a> <a class="el" href="../../db/db6/classsc_1_1vector.html">sc::vector</a>&lt; T &gt;::DEFAULT_SIZE = 1</td>
         </tr>
       </table>
   </td>

@@ -2,6 +2,11 @@
 \label{classsc_1_1vector}\index{sc\+::vector$<$ T $>$@{sc\+::vector$<$ T $>$}}
 
 
+A classe vector implementa a lista T\+AD com array dinâmico (conhecido como vector).  
+
+
+
+
 {\ttfamily \#include $<$vector.\+h$>$}
 
 
@@ -110,12 +115,12 @@ bool \hyperlink{classsc_1_1vector_a14470a2d43b26c15f0f7aaeeb6ae4f04}{operator==}
 \begin{DoxyCompactList}\small\item\em Sobrecarga do operador de igualdade. \end{DoxyCompactList}\item 
 bool \hyperlink{classsc_1_1vector_a9cf88e668b52a2a00961378d60812064}{operator!=} (const \hyperlink{classsc_1_1vector}{vector} \&) const
 \begin{DoxyCompactList}\small\item\em Sobrecarga do operador de desigualdade. \end{DoxyCompactList}\item 
-{\footnotesize template$<$typename T$>$ }\\void \hyperlink{classsc_1_1vector_a67d141f57f019a2ad15fa39b90369910}{assign} (\hyperlink{classsc_1_1vector}{vector}$<$ T $>$\+::\hyperlink{classsc_1_1vector_a48bf37ba1a6d0c13504414d86e27c399}{size\+\_\+type} count\+\_\+, \hyperlink{classsc_1_1vector}{vector}$<$ T $>$\+::\hyperlink{classsc_1_1vector_a8da2b1a11b069241100f9b2e14f481a0}{const\+\_\+reference} value)
+{\footnotesize template$<$typename T$>$ }\\void \hyperlink{classsc_1_1vector_a70d7074754cd062c66a968f5d3b5ad2a}{assign} (\hyperlink{classsc_1_1vector}{vector}$<$ T $>$\+::\hyperlink{classsc_1_1vector_a48bf37ba1a6d0c13504414d86e27c399}{size\+\_\+type} count\+\_\+, \hyperlink{classsc_1_1vector}{vector}$<$ T $>$\+::\hyperlink{classsc_1_1vector_a8da2b1a11b069241100f9b2e14f481a0}{const\+\_\+reference} value\+\_\+)
 \end{DoxyCompactItemize}
 \subsection*{Atributos Públicos Estáticos}
 \begin{DoxyCompactItemize}
 \item 
-static const \hyperlink{classsc_1_1vector_a48bf37ba1a6d0c13504414d86e27c399}{size\+\_\+type} \hyperlink{classsc_1_1vector_a287b97d30cd9f7540da7d5ef628e49a7}{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE} = 0
+static const \hyperlink{classsc_1_1vector_a48bf37ba1a6d0c13504414d86e27c399}{size\+\_\+type} \hyperlink{classsc_1_1vector_a287b97d30cd9f7540da7d5ef628e49a7}{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE} = 1
 \begin{DoxyCompactList}\small\item\em Size used for init and clear vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Atributos Privados}
 \begin{DoxyCompactItemize}
@@ -134,6 +139,12 @@ std\+::ostream \& \hyperlink{classsc_1_1vector_a889e37c4415a33fb90d8b564bf428e24
 void \hyperlink{classsc_1_1vector_a9198beeb05f24ba2eadccab0a606063c}{swap} (\hyperlink{classsc_1_1vector}{vector} \&first\+\_\+, \hyperlink{classsc_1_1vector}{vector} \&second\+\_\+)
 \end{DoxyCompactItemize}
 
+
+\subsection{Descrição detalhada}
+\subsubsection*{template$<$typename T$>$\newline
+class sc\+::vector$<$ T $>$}
+
+A classe vector implementa a lista T\+AD com array dinâmico (conhecido como vector). 
 
 \subsection{Documentação das definições de tipo}
 \mbox{\Hypertarget{classsc_1_1vector_a1e50aa429ea9de6ead4bfdb8614c1c9a}\label{classsc_1_1vector_a1e50aa429ea9de6ead4bfdb8614c1c9a}} 
@@ -320,13 +331,13 @@ void vector\+::assign (\begin{DoxyParamCaption}\item[{Input\+Itr}]{first,  }\ite
 
 Modifica os elementos de uma lista a partir de um intervalo. 
 
-\mbox{\Hypertarget{classsc_1_1vector_a67d141f57f019a2ad15fa39b90369910}\label{classsc_1_1vector_a67d141f57f019a2ad15fa39b90369910}} 
+\mbox{\Hypertarget{classsc_1_1vector_a70d7074754cd062c66a968f5d3b5ad2a}\label{classsc_1_1vector_a70d7074754cd062c66a968f5d3b5ad2a}} 
 \index{sc\+::vector@{sc\+::vector}!assign@{assign}}
 \index{assign@{assign}!sc\+::vector@{sc\+::vector}}
 \subsubsection{\texorpdfstring{assign()}{assign()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
 {\footnotesize\ttfamily template$<$typename T$>$ \\
 template$<$typename T$>$ \\
-void \hyperlink{classsc_1_1vector}{sc\+::vector}$<$ T $>$\+::assign (\begin{DoxyParamCaption}\item[{\hyperlink{classsc_1_1vector}{vector}$<$ T $>$\+::\hyperlink{classsc_1_1vector_a48bf37ba1a6d0c13504414d86e27c399}{size\+\_\+type}}]{count\+\_\+,  }\item[{\hyperlink{classsc_1_1vector}{vector}$<$ T $>$\+::\hyperlink{classsc_1_1vector_a8da2b1a11b069241100f9b2e14f481a0}{const\+\_\+reference}}]{value }\end{DoxyParamCaption})}
+void \hyperlink{classsc_1_1vector}{sc\+::vector}$<$ T $>$\+::assign (\begin{DoxyParamCaption}\item[{\hyperlink{classsc_1_1vector}{vector}$<$ T $>$\+::\hyperlink{classsc_1_1vector_a48bf37ba1a6d0c13504414d86e27c399}{size\+\_\+type}}]{count\+\_\+,  }\item[{\hyperlink{classsc_1_1vector}{vector}$<$ T $>$\+::\hyperlink{classsc_1_1vector_a8da2b1a11b069241100f9b2e14f481a0}{const\+\_\+reference}}]{value\+\_\+ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{classsc_1_1vector_aad1a99cfd4cbd7fe58bfb6439d78c8db}\label{classsc_1_1vector_aad1a99cfd4cbd7fe58bfb6439d78c8db}} 
 \index{sc\+::vector@{sc\+::vector}!at@{at}}
@@ -700,7 +711,7 @@ void swap (\begin{DoxyParamCaption}\item[{\hyperlink{classsc_1_1vector}{vector}$
 \index{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE@{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE}!sc\+::vector@{sc\+::vector}}
 \subsubsection{\texorpdfstring{D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE}{DEFAULT\_SIZE}}
 {\footnotesize\ttfamily template$<$typename T$>$ \\
-const \hyperlink{classsc_1_1vector_a48bf37ba1a6d0c13504414d86e27c399}{size\+\_\+type} \hyperlink{classsc_1_1vector}{sc\+::vector}$<$ T $>$\+::D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE = 0\hspace{0.3cm}{\ttfamily [static]}}
+const \hyperlink{classsc_1_1vector_a48bf37ba1a6d0c13504414d86e27c399}{size\+\_\+type} \hyperlink{classsc_1_1vector}{sc\+::vector}$<$ T $>$\+::D\+E\+F\+A\+U\+L\+T\+\_\+\+S\+I\+ZE = 1\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
