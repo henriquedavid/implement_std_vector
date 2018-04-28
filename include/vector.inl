@@ -311,17 +311,18 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , InputItr first_ 
 
     int quantidade = last_ - first_;
 
-    sc::vector<T> suport(quantidade);
+    sc::vector<T> support(quantidade);
     auto f(first_);
     auto l(last_);
-    int i = 0;
+    int q = 0;
 
-    while(f+i != l){
-        suport[i] == *(f+i);
-        i++;
+    while(f+q != l){
+        support[q] = *(f+q);
+        std::cout << *(f+q) << std::endl;
+        q++;
     }
 
-    if(m_end >= this->m_capacity)
+    if(m_end+quantidade >= this->m_capacity)
         this->reserve(this->m_capacity * 2);
 
     auto new_armazenamento(m_storage);
@@ -331,15 +332,19 @@ typename vector<T>::iterator vector<T>::insert( iterator pos_ , InputItr first_ 
     auto last( new_armazenamento + m_end );
     auto new_last( new_armazenamento + m_end + quantidade );
 
-    int i = 0;
-    while( new_last != last ){
-        *(new_last) == *(last-i);
-        new_last--;
-        i++;
 
+    while(new_last >= (new_ate)){
+        *(new_last) = *(new_last-quantidade);
+        new_last--;
     }
 
-    std::copy( first_, last_, &(*(new_apartir)));
+    int i = 0;
+    i = 0;
+    while(new_local+i <= new_ate){
+        *(new_local+i) = support[i];
+        i++;
+    }
+
     m_end += quantidade;
 
     return pos_;
