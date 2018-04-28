@@ -147,8 +147,13 @@ int main(){
     assert(cmp(*av, *a_v) && "Error at insert initalizer list function.");
     //assert(*itc1 == *itd1 && *itc2 == *itd2 && *itc3 == *itd3 && "Error at return of insert initalizer list function.");
    
-    bv = unique_ptr < sc::vector<int> >  ( new sc::vector<int> {23, 24, 25, 26, 27, 28, 29, 30} );
-    b_v = unique_ptr < std::vector<int> >  ( new std::vector<int> {23, 24, 25, 26, 27, 28, 29, 30} );
+
+
+    unique_ptr < sc::vector<int> > bv1 ( new sc::vector<int> {23, 24, 25, 26, 27, 28, 29, 30} );
+    unique_ptr < std::vector<int> > b_v1 ( new std::vector<int> {23, 24, 25, 26, 27, 28, 29, 30} );
+
+    *bv = *bv1;
+    *b_v =  *b_v1;
     *av = *bv; 
     *a_v = *b_v;
     
@@ -170,6 +175,7 @@ int main(){
     
     assert(cmp(*bv, *b_v) && "Error at range erase function.");
     assert(*itc1 == *itd1 && "Error at return of range erase function.");
+
     
     /*
     void assign( size_type count_, const_reference value_);
