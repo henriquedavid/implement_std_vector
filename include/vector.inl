@@ -143,7 +143,13 @@ template < typename T >
 vector<T>::vector(vector<T>&& vtr){
     this->m_capacity = vtr.m_capacity;
     this->m_end = vtr.m_end;
+    
+    delete [] this->m_storage;
+    
     this->m_storage = std::move(vtr.m_storage);
+    vtr.m_storage = new T[DEFAULT_SIZE];
+    vtr.m_capacity = DEFAULT_SIZE;
+    vtr.m_end = 0;
 }
 
 template < typename T >
@@ -179,13 +185,16 @@ vector<T> & vector<T>::operator=( const vector<T> & vtr ) {
     return *this;
 }
 
+
 template < typename T >
 vector<T> & vector<T>::operator=( vector<T> && vtr ){
     this->m_capacity = vtr.m_capacity;
     this->m_end = vtr.m_end;
-    this->m_storage = std::move(vtr.m_storage);
     
-    vtr.m_storage = nullptr;
+    delete [] this->m_storage;
+    
+    this->m_storage = std::move(vtr.m_storage);
+    vtr.m_storage = new T[DEFAULT_SIZE];
     vtr.m_capacity = DEFAULT_SIZE;
     vtr.m_end = 0;
     
@@ -407,13 +416,16 @@ void vector<T>::shrink_to_fit( void )
 }
 
 template < typename T >
-void vector<T>::assign( vector<T>::size_type count_, vector<T>::const_reference value )
+void vector<T>::assign( vector<T>::size_type count_, vector<T>::const_reference value_ )
 {
-    auto first = m_storage;
-    auto last = m_storage + count_;
+    vector<T> vect(count_);
+    for(auto i(0); i < count_; ++i)
+        vect.insert(value_);
     
-    while(first < last)
-        *(first++) = value;
+    delete [] this->m_storage;
+    this->m_storage = vect;
+    m_end = count_;
+    m_capacity = count_+1;
 }
 
 template < typename T >
@@ -424,17 +436,19 @@ void vector<T>::assign( std::initializer_list<T> il ){
     std::copy( il.begin(), il.end(), &m_storage[0]);
     m_end = il.size();
 }
+
 template < typename T >
 template < typename InputItr >
 void vector<T>::assign( InputItr first, InputItr last){
     vector<T>::size_type size = last - first;
+    iterator f(first);
     if(size > this->m_capacity)
         this->reserve(size * 2);
     
     for(auto i(0u); i < size; ++i)
-        this->m_storage[i] = first[i];
+        this->m_storage[i] = *(f+i);
     
-    this->m_size = size;
+    this->m_end = size;
 }
 
 template < typename T >

@@ -175,19 +175,29 @@ int main(){
     
     assert(cmp(*bv, *b_v) && "Error at range erase function.");
     assert(*itc1 == *itd1 && "Error at return of range erase function.");
+    
+    std::cout << *bv << std::endl;
+    std::cout << *b_v << std::endl;
 
-    
-    /*
-    void assign( size_type count_, const_reference value_);
-    void assign( size_type count_, const_reference value_);
-    /// Modifica os elementos da lista a partir de uma lista inicializadora.
-    void assign( std::initializer_list<T> );
-    /// Modifica os elementos de uma lista a partir de um intervalo.
-    template < typename InputItr >
-    void assign( InputItr, InputItr );*/
-    
-    
-   
+    int x = 2;
+
+    bv->assign( 5, x );
+    b_v->assign( 5, x );
+
+    std::cout << *bv << std::endl;
+    std::cout << *b_v << std::endl;
+
+    assert( cmp(*bv, *b_v) && "Error at assign in a element.");
+
+    bv->assign(  {1,2,3,4} );
+    b_v->assign( {1,2,3,4} );
+
+    assert(cmp(*bv, *b_v) && "Error at assign in a initializer_list.");
+
+    bv->assign(  av->begin(), av->end() );
+    b_v->assign( a_v->begin(), a_v->end() );
+
+    assert(cmp(*bv, *b_v) && "Error at assign in a range.");
     
 #endif
     
